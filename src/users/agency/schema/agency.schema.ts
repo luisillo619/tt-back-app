@@ -41,4 +41,4 @@ export class Agency {
   trip: ObjectId[];
 }
 
-export const SellerSchema = SchemaFactory.createForClass(Agency);
+export const AgencySchema = SchemaFactory.createForClass(Agency);
