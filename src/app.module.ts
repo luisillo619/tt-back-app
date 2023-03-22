@@ -32,6 +32,7 @@ import { ResponsibleController } from './responsible/responsible.controller';
 import { ResponsibleModule } from './responsible/responsible.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { ConfigModule } from '@nestjs/config';
     TouristModule,
     ClaimModule,
     ResponsibleModule,
+    AuthModule,
   ],
 
   controllers: [],
