@@ -18,6 +18,12 @@ export class AgencyService {
     private readonly agencyModel: Model<AgencyDocument>,
   ) {}
 
+  //Metodo para buscar Agency por alguna propiedad string
+  async findOne(props: string): Promise<Agency> {
+    return this.agencyModel.findOne({ props }).exec();
+  }
+
+  //Metodo create Agency
   async create(registrationDto: AgencyRegistrationDto): Promise<Agency> {
     const { name, email, password, phoneNumber } = registrationDto;
     if (!name || !email || !password || !phoneNumber) {
