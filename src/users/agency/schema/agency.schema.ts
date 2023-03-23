@@ -8,6 +8,8 @@ export type AgencyDocument = Agency & Document;
 
 @Schema()
 export class Agency {
+  @Prop({ type: mongoose.Types.ObjectId })
+  _id: string;
   @Prop({ required: true })
   name: string;
 
