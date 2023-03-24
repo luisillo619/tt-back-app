@@ -11,5 +11,6 @@ import { Agency, AgencySchema } from './schema/agency.schema';
   ],
   controllers: [AgencyController],
   providers: [AgencyService],
+  exports: [AgencyService, MongooseModule],
 })
 export class AgencyModule {}
