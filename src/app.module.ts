@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AgencyModule } from './users/agency/agency.module';

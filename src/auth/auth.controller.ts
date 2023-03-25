@@ -7,12 +7,19 @@ import { AgencyRegistrationDto } from '../users/agency/dto/agency-registration.d
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post('register/agency')
+  async registerAgency(@Body() agencyRegistrationDto: AgencyRegistrationDto) {
+    return this.authService.registerAgency(agencyRegistrationDto);
+  }
+
+  @Post('login/agency')
   async login(@Body() agencyRegistrationDto: AgencyRegistrationDto) {
+    console.log(agencyRegistrationDto);
     const agency = await this.authService.validateAgency(
       agencyRegistrationDto.email,
       agencyRegistrationDto.password,
     );
-    return this.authService.login(agency);
+    console.log(agency);
+    return this.authService.loginAgency(agency);
   }
 }

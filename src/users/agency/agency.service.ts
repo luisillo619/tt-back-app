@@ -19,8 +19,8 @@ export class AgencyService {
   ) {}
 
   //Metodo para buscar Agency por alguna propiedad string
-  async findOne(props: string): Promise<Agency> {
-    return this.agencyModel.findOne({ props }).exec();
+  async findOne(email: string): Promise<Agency> {
+    return this.agencyModel.findOne({ email }).exec();
   }
 
   //Metodo create Agency
@@ -32,16 +32,13 @@ export class AgencyService {
     if (!isEmail(email)) {
       throw new BadRequestException('email is not valid');
     }
-    if (!isStrongPassword(password)) {
-      throw new BadRequestException('password most to be 8 characters');
-    }
     const existingAgency = await this.agencyModel.findOne({ email }).exec();
     if (existingAgency) {
       throw new ConflictException('Email is already exist');
     }
     const hashedPassword = await hash(password, 10);
     const createdAgency = new this.agencyModel({
-      ...Agency,
+      ...registrationDto,
       password: hashedPassword,
     });
     return createdAgency.save();
