@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export function isEmail(email: string): boolean {
   // Regex pattern for email validation
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

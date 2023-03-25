@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AgencyRegistrationDto } from '../users/agency/dto/agency-registration.dto';

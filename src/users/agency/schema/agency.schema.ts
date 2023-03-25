@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Prop } from '@nestjs/mongoose/dist';
 import mongoose, { ObjectId, Document } from 'mongoose';
