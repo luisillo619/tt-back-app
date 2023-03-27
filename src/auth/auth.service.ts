@@ -1,19 +1,22 @@
+import { compare } from 'bcrypt';
+
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+
 import { Agency } from 'src/users/agency/schema/agency.schema';
-import { AgencyService } from '../users/agency/agency.service';
-import { compare } from 'bcrypt';
 import { AgencyRegistrationDto } from '../users/agency/dto/agency-registration.dto';
+
+import { AgencyService } from '../users/agency/agency.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly agencyService: AgencyService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
-  async validateAgency(email: string, password: string): Promise<Agency> {
-    const agency = await this.agencyService.findOne(email);
+  async validateAgency(email: string, password: string): Promise<any> {
+    const agency = await this.agencyService.create(email);
     console.log('agency', agency);
     if (!agency) {
       throw new UnauthorizedException('Invalid Credentials');
