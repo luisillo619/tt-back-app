@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AgencyController } from './agency.controller';
-import { AgencyService } from './agency.service';
 import { MongooseModule } from '@nestjs/mongoose';
+
+import { AgencyService } from './agency.service';
+import { AgencyController } from './agency.controller';
+
 import { Agency, AgencySchema } from './schema/agency.schema';
+import { AgencyRepository } from './repository/agency.repository';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Agency.name, schema: AgencySchema }]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: Agency.name, schema: AgencySchema }])],
   controllers: [AgencyController],
-  providers: [AgencyService],
-  exports: [AgencyService, MongooseModule],
+  providers: [AgencyService, AgencyRepository],
+  exports: [AgencyService, MongooseModule]
 })
 export class AgencyModule {}

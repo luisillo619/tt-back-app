@@ -15,6 +15,7 @@ import { TouristModule } from './tourist/tourist.module';
 import { ClaimModule } from './claim/claim.module';
 import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthModule } from './auth/auth.module';
+import { RepositoryModule } from './repository/repository.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { AuthModule } from './auth/auth.module';
     TouristModule,
     ClaimModule,
     ResponsibleModule,
-    AuthModule
+    AuthModule,
+    RepositoryModule
   ],
 
   controllers: [],
