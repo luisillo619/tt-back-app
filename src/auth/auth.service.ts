@@ -4,7 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { Agency } from 'src/users/agency/schema/agency.schema';
-import { AgencyRegistrationDto } from '../users/agency/dto/agency-registration.dto';
+import { AgencyRegistrationDto } from '../users/agency/dto/agency.dto';
 
 import { AgencyService } from '../users/agency/agency.service';
 
@@ -31,9 +31,7 @@ export class AuthService {
     return agency;
   }
 
-  async registerAgency(
-    regustrationDto: AgencyRegistrationDto,
-  ): Promise<Agency> {
+  async registerAgency(regustrationDto: AgencyRegistrationDto): Promise<any> {
     const newAgency = this.agencyService.create(regustrationDto);
     return newAgency;
   }
@@ -41,7 +39,7 @@ export class AuthService {
   async loginAgency(agency: Agency) {
     const payload = { email: agency.email, sub: agency.email };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload)
     };
   }
 }
