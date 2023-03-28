@@ -1,46 +1,57 @@
-/* eslint-disable prettier/prettier */
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Prop } from '@nestjs/mongoose/dist';
-import mongoose, { ObjectId, Document } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+
 import { AgencyUser } from 'src/agency-user/schema/agency-user.schema';
 
-export type AgencyDocument = Agency & Document;
+export type AgencyDocument = HydratedDocument<Agency>;
 
 @Schema()
 export class Agency {
-  @Prop({ type: mongoose.Types.ObjectId })
-  _id: string;
-  @Prop({ required: true })
+  @Prop()
   name: string;
 
-  @Prop({ required: true, unique: true })
+  @Prop({ unique: true })
   email: string;
+
   @Prop({ required: true })
   password: string;
+
   @Prop()
   phoneNumber: number;
+
   @Prop()
   legalTax: string;
+
   @Prop()
   isActive: boolean;
+
   @Prop()
   AgencyPayment: string[];
+
   @Prop()
   planType: string;
+
   @Prop()
-  guide: ObjectId;
+  guide: string;
+
   @Prop()
-  responsable: ObjectId;
+  responsable: string;
+
   @Prop()
-  banners: ObjectId[];
+  banners: string[];
+
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AgencyUser' }] })
   agencyUsers: AgencyUser[];
+
   @Prop()
-  sellers: ObjectId[];
+  sellers: string[];
+
   @Prop()
-  invitationSended: ObjectId[];
+  invitationSended: string[];
+
   @Prop()
-  trip: ObjectId[];
+  trip: string[];
 }
 
 export const AgencySchema = SchemaFactory.createForClass(Agency);
