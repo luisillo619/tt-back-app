@@ -1,16 +1,11 @@
 import { hash } from 'bcrypt';
 import { Model } from 'mongoose';
 
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Agency, AgencyDocument } from './schema/agency.schema';
-import { AgencyRegistrationDto } from './dto/agency-registration.dto';
-import { isEmail } from './utils/agency.utils';
+import { AgencyRegistrationDTO } from './dto/agency-registration.dto';
 
 @Injectable()
 export class AgencyService {
@@ -23,16 +18,8 @@ export class AgencyService {
     return this._agencyModel.findOne({ email }).exec();
   }
 
-  async create(registrationDto: AgencyRegistrationDto): Promise<Agency> {
-    const { name, email, password, phoneNumber } = registrationDto;
-
-    if (!name || !email || !password || !phoneNumber) {
-      throw new BadRequestException('Missing data');
-    }
-
-    if (!isEmail(email)) {
-      throw new BadRequestException('email is not valid');
-    }
+  async create(registrationDTO: AgencyRegistrationDTO): Promise<Agency> {
+    const { email, password } = registrationDTO;
 
     const existingAgency = await this._agencyModel.findOne({ email }).exec();
     if (existingAgency) {
@@ -40,8 +27,9 @@ export class AgencyService {
     }
 
     const hashedPassword = await hash(password, 10);
+
     const createdAgency = new this._agencyModel({
-      ...registrationDto,
+      ...registrationDTO,
       password: hashedPassword,
     });
 

@@ -1,10 +1,10 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { compare } from 'bcrypt';
+
 import { Agency } from 'src/users/agency/schema/agency.schema';
 import { AgencyService } from '../users/agency/agency.service';
-import { compare } from 'bcrypt';
-import { AgencyRegistrationDto } from '../users/agency/dto/agency-registration.dto';
+import { AgencyRegistrationDTO } from '../users/agency/dto/agency-registration.dto';
 
 @Injectable()
 export class AuthService {
@@ -15,25 +15,18 @@ export class AuthService {
 
   async validateAgency(email: string, password: string): Promise<Agency> {
     const agency = await this.agencyService.findOne(email);
-    console.log('agency', agency);
+
     if (!agency) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
     const isPasswordValid = await compare(password, agency.password);
-    console.log('password', isPasswordValid);
+
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
     return agency;
-  }
-
-  async registerAgency(
-    regustrationDto: AgencyRegistrationDto,
-  ): Promise<Agency> {
-    const newAgency = this.agencyService.create(regustrationDto);
-    return newAgency;
   }
 
   async loginAgency(agency: Agency) {

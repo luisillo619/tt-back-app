@@ -1,9 +1,9 @@
-/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+
+import { AuthService } from './auth.service';
+import { AuthController } from './auth.controller';
 import { LocalStrategy } from './local.strategy';
 import { AgencyModule } from 'src/users/agency/agency.module';
 import { AgencyService } from 'src/users/agency/agency.service';

@@ -4,10 +4,14 @@ import { AgencyUserController } from './agency-user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AgencyUserSchema, AgencyUser } from './schema/agency-user.schema';
+import { AgencyModule } from 'src/users/agency/agency.module';
+import { AgencyService } from 'src/users/agency/agency.service';
+import { Agency, AgencySchema } from '../users/agency/schema/agency.schema';
 
 //
 @Module({
   imports: [
+    AgencyModule,
     MongooseModule.forFeature([
       {
         name: AgencyUser.name,
@@ -16,6 +20,6 @@ import { AgencyUserSchema, AgencyUser } from './schema/agency-user.schema';
     ]),
   ],
   controllers: [AgencyUserController],
-  providers: [AgencyUserService],
+  providers: [AgencyUserService, AgencyService],
 })
 export class AgencyUserModule {}
