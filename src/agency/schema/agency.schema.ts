@@ -2,9 +2,9 @@ import { HydratedDocument } from 'mongoose';
 
 import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
 
-import { AgencyUser } from 'src/agency-user/schema/agency-user.schema';
+import { AgencyUser } from '../../agency-user/schema/agency-user.schema';
 
-import { ObjectId } from '../utils/database.utils';
+import { ObjectId } from '../../utils/database.utils';
 
 export type AgencyDocument = HydratedDocument<Agency>;
 

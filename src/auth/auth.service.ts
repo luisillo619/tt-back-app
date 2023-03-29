@@ -3,9 +3,9 @@ import { compare } from 'bcrypt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { Agency } from 'src/users/agency/schema/agency.schema';
+import { Agency } from '../agency/schema/agency.schema';
 
-import { AgencyService } from '../users/agency/agency.service';
+import { AgencyService } from '../agency/agency.service';
 
 @Injectable()
 export class AuthService {

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
-import { AgencyModule } from 'src/users/agency/agency.module';
+import { AgencyModule } from '../agency/agency.module';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';

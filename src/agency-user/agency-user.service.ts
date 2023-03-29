@@ -6,5 +6,5 @@ export class AgencyUserService {
 
   async getAgencyUsers() {}
 
-  async getAgencyUser(_id: number) {}
+  async getAgencyUser(_id: string) {}
 }

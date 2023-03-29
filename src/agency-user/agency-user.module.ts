@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AgencyModule } from '../users/agency/agency.module';
-import { AgencyService } from '../users/agency/agency.service';
+import { AgencyModule } from '../agency/agency.module';
+import { AgencyService } from '../agency/agency.service';
 
 import { AgencyUserService } from './agency-user.service';
 import { AgencyUserController } from './agency-user.controller';
