@@ -1,16 +1,17 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
-import { Agency } from 'src/users/agency/schema/agency.schema';
-import { AgencyService } from '../users/agency/agency.service';
-import { AgencyRegistrationDTO } from '../users/agency/dto/agency-registration.dto';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
+import { Agency } from '../agency/schema/agency.schema';
+
+import { AgencyService } from '../agency/agency.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly agencyService: AgencyService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   async validateAgency(email: string, password: string): Promise<Agency> {
@@ -32,7 +33,7 @@ export class AuthService {
   async loginAgency(agency: Agency) {
     const payload = { email: agency.email, sub: agency.email };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload)
     };
   }
 }

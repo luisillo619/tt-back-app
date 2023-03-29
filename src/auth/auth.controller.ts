@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import { AgencyRegistrationDTO } from '../users/agency/dto/agency-registration.dto';
+import { AgencyRegistrationDTO } from '../agency/dto/agency.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -9,10 +9,9 @@ export class AuthController {
 
   @Post('login/agency')
   async login(@Body() agencyRegistrationDTO: AgencyRegistrationDTO) {
-    const agency = await this.authService.validateAgency(
-      agencyRegistrationDTO.email,
-      agencyRegistrationDTO.password,
-    );
+    const { email, password } = agencyRegistrationDTO;
+
+    const agency = await this.authService.validateAgency(email, password);
 
     return this.authService.loginAgency(agency);
   }

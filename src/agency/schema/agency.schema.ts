@@ -1,8 +1,10 @@
-import { Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Prop } from '@nestjs/mongoose/dist';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
-import { AgencyUser } from 'src/agency-user/schema/agency-user.schema';
+import { Schema, SchemaFactory, Prop } from '@nestjs/mongoose';
+
+import { AgencyUser } from '../../agency-user/schema/agency-user.schema';
+
+import { ObjectId } from '../../utils/database.utils';
 
 export type AgencyDocument = HydratedDocument<Agency>;
 
@@ -41,7 +43,7 @@ export class Agency {
   @Prop()
   banners: string[];
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AgencyUser' }] })
+  @Prop({ type: [{ type: ObjectId, ref: 'AgencyUser' }] })
   agencyUsers: AgencyUser[];
 
   @Prop()

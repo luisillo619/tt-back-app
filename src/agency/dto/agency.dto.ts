@@ -1,17 +1,19 @@
-/* eslint-disable prettier/prettier */
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 
 export class AgencyRegistrationDTO {
   @IsNotEmpty()
   name: string;
 
+  @IsString()
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @IsString()
   @IsNotEmpty()
   password: string;
 
+  @IsString()
   @IsNotEmpty()
-  phoneNumber: number;
+  phoneNumber: string;
 }

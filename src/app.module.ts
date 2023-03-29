@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 
-import { AgencyModule } from './users/agency/agency.module';
+import { AgencyModule } from './agency/agency.module';
 import { BannerModule } from './banner/banner.module';
 import { SellerModule } from './seller/seller.module';
 import { TripModule } from './trip/trip.module';
@@ -15,12 +15,13 @@ import { TouristModule } from './tourist/tourist.module';
 import { ClaimModule } from './claim/claim.module';
 import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthModule } from './auth/auth.module';
+import { RepositoryModule } from './repository/repository.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true,
+      isGlobal: true
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     AgencyModule,
@@ -36,9 +37,10 @@ import { AuthModule } from './auth/auth.module';
     ClaimModule,
     ResponsibleModule,
     AuthModule,
+    RepositoryModule
   ],
 
   controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}
