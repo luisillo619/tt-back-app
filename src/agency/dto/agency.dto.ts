@@ -1,7 +1,6 @@
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 
-export class AgencyRegistrationDto {
-  @IsString()
+export class AgencyRegistrationDTO {
   @IsNotEmpty()
   name: string;
 

@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
+<<<<<<< HEAD
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+=======
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+>>>>>>> AgencyModule
 
 import { AgencyModule } from './users/agency/agency.module';
 import { BannerModule } from './banner/banner.module';
