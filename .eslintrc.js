@@ -15,7 +15,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    "no-console": "off", // DEV: Development only. Erase before production
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-use-before-define": "off",
     "no-undef": "off",
     "no-param-reassign": "off",
@@ -29,14 +29,15 @@ module.exports = {
     "no-plusplus": "off",
     "no-empty-function": "off",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "error",
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "no-restricted-syntax": "off",
     "no-await-in-loop": "off",
     "guard-for-in": "off",
     "no-useless-escape": "off",
-    "default-case": "off"
+    "default-case": "off",
+    "dot-notation": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
   }
 };
