@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
-export type ResponsibleDocument = HydratedDocument<Responsible>; // Te crea la interfaz de un documento de mongoose sin necesidad de crear un archivo interface
+export type ResponsibleDocument = HydratedDocument<Responsible>; 
 
 enum TripState {
   PLANNED = 'planned',

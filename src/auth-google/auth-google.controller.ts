@@ -3,8 +3,6 @@ import { Body, Redirect, Req, Res } from '@nestjs/common/decorators';
 import { GoogleAuthGuard } from './utils/Guards';
 import { Response } from 'express';
 
-
-
 @Controller('api/auth/google')
 export class AuthGoogleController {
  
@@ -27,7 +25,6 @@ export class AuthGoogleController {
 
   @Get('status')
   user(@Req() request: Request & { user: any }) {
-    console.log('estoy en el controlador', request.user);
     if (request.user) {
       return { msg: request.user };
     } else {
