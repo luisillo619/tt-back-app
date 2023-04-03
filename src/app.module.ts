@@ -14,6 +14,7 @@ import { ClaimModule } from './claim/claim.module';
 import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthTouristModule } from './auth/auth.module';
 import { RepositoryModule } from './repository/repository.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { RepositoryModule } from './repository/repository.module';
       isGlobal: true
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
+    PassportModule.register({ session: true }),
     AgencyModule,
     BannerModule,
     SellerModule,
