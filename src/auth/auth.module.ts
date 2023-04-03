@@ -1,25 +1,28 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '@nestjs/passport';
+import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
+import { jwtConstant } from './jwt.constantes';
+import { JwtStrategy } from './jwt.strategy';
 
-import { AgencyModule } from '../agency/agency.module';
-
-import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { AuthControllerTourist } from './auth.controller';
+import { Tourist, TouristSchema } from '../tourist/schema/tourist.schema';
+import { Agency, AgencySchema } from '../agency/schema/agency.schema';
 
-import { LocalStrategy } from './local.strategy';
 
 @Module({
   imports: [
-    AgencyModule,
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    MongooseModule.forFeature([
+      { name: Tourist.name, schema: TouristSchema },
+      { name: Agency.name, schema: AgencySchema },
+    ]),
+
     JwtModule.register({
-      secret: 'secreti',
-      signOptions: { expiresIn: '34400s' }
-    })
+      secret: jwtConstant.secret,
+      signOptions: { expiresIn: '60m' },    //Expira en '60s', '60m', '60h'
+    }),
   ],
-  providers: [AuthService, LocalStrategy],
-  controllers: [AuthController],
-  exports: [AuthService, JwtModule]
+  controllers: [AuthControllerTourist],
+  providers: [AuthService, JwtStrategy]
 })
-export class AuthModule {}
+export class AuthTouristModule {}
