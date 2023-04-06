@@ -13,7 +13,6 @@ export class AgencyUserService {
   constructor(
     @InjectModel(AgencyUser.name)
     private agencyUserModel: Model<AgencyUserDocument>,
-    private readonly agencyUserService: AgencyUserService,
   ) {}
 
   async getAgencyUsers() {

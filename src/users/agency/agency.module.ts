@@ -12,10 +12,7 @@ import {
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Agency.name, schema: AgencySchema },
-      { name: AgencyUser.name, schema: AgencyUserSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Agency.name, schema: AgencySchema }]),
   ],
   controllers: [AgencyController],
   providers: [AgencyService],
