@@ -1,7 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-// import { CreateAgencyUserDto } from './dto/create-agency-user.dto';
 import { AgencyUserService } from './agency-user.service';
-// import { AgencyUserInterface } from './interface/agency-user';
 
 @Controller()
 export class AgencyUserController {
@@ -14,6 +12,6 @@ export class AgencyUserController {
 
   @Get(':id')
   getAgencyUser(@Param('id') id: string) {
-    return this.agencyUserService.getAgencyUser(parseInt(id));
+    return this.agencyUserService.getAgencyUser(id);
   }
 }

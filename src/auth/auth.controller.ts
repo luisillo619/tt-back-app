@@ -1,19 +1,33 @@
-import { Body, Controller, Post } from '@nestjs/common';
-
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AgencyRegistrationDTO } from '../users/agency/dto/agency-registration.dto';
+import { LoginAuthDto } from './dto/login-touris-auth.dto';
 
-@Controller('auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
 
-  @Post('login/agency')
-  async login(@Body() agencyRegistrationDTO: AgencyRegistrationDTO) {
-    const agency = await this.authService.validateAgency(
-      agencyRegistrationDTO.email,
-      agencyRegistrationDTO.password,
-    );
+@Controller('login')
+export class AuthControllerTourist {
+    constructor(private readonly authService: AuthService) {}
 
-    return this.authService.loginAgency(agency);
-  }
+    // @Post('/loginTourist')
+    async loginTourist(@Body() touristObjectLogin: LoginAuthDto) {
+      const data = await this.authService.login(touristObjectLogin, 'tourist');
+      return data;
+    }
+  
+    // @Post('/agency')
+    async loginAgency(@Body() agencyObjectLogin: LoginAuthDto) {
+      const data = await this.authService.login(agencyObjectLogin, 'agency');
+      return data;
+    }
+
+    // //Login Tourist
+    // @Post('tourist')
+    // loginUserTourist(@Body() touristObjectLogin: LoginAuthDto) {
+    //     return this.authService.tourist(touristObjectLogin);
+    // }
+
+    // //Login Agency
+    // @Post('agency')
+    // loginUserAgency(@Body() agencyObjectLogin: LoginAuthDto) {
+    //     return this.authService.agency(agencyObjectLogin);
+    // }
 }
