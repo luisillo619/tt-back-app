@@ -15,5 +15,4 @@ export class AuthResponsibleService {
     const user = await this._responsibleRepository.findById(id);
     return user;
   }
-
 }

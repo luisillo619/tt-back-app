@@ -10,8 +10,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: `${process.env.API_URL}/api/auth/google/redirect`,
-      scope: ['profile', 'email'], //definido en la pantalla de consentimiento de la consola de google
-      prompt: 'select_account consent',
+      scope: ['profile', 'email'], // definido en la pantalla de consentimiento de la consola de google
+      prompt: 'select_account consent'
     });
   }
 
@@ -28,7 +28,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       fullName: profile.displayName,
       subject: profile.id,
       provider: profile.provider,
-      picture: profile._json.picture,
+      picture: profile._json.picture
     });
     console.log('validate');
     return user || null;

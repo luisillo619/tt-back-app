@@ -1,12 +1,5 @@
 import { Controller } from '@nestjs/common';
-import {
-  Get,
-  Put,
-  Req,
-  UseGuards,
-  Body,
-  Param,
-} from '@nestjs/common/decorators';
+import { Get, Put, Req, UseGuards, Body, Param } from '@nestjs/common/decorators';
 import { GoogleAuthGuard } from 'src/auth-google/utils/Guards';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { ResponsibleService } from './responsible.service';
@@ -49,6 +42,6 @@ export class ResponsibleController {
   @Get('status')
   userStatus(@Req() request: Request & { user: any }) {
     if (request.user) return request.user;
-    else return 'Not Authenticated';
+    return 'Not Authenticated';
   }
 }

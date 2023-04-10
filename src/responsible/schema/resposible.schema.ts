@@ -1,17 +1,17 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 
-export type ResponsibleDocument = HydratedDocument<Responsible>; 
+export type ResponsibleDocument = HydratedDocument<Responsible>;
 
 enum TripState {
   PLANNED = 'planned',
   IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed',
+  COMPLETED = 'completed'
 }
 
 enum ResponsibleType {
   DRIVER = 'driver',
-  GUIDE = 'guide',
+  GUIDE = 'guide'
 }
 
 @Schema()
@@ -23,7 +23,7 @@ export class Responsible {
   lastName: string;
 
   @Prop({
-    required: true,
+    required: true
   })
   email: string;
 
@@ -58,7 +58,7 @@ export class Responsible {
   responsibleType: ResponsibleType;
 
   @Prop()
-  rol: string
+  rol: string;
 
   // AGENCY
   //   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Agency' }] })

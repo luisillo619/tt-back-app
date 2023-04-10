@@ -6,6 +6,7 @@ export class SessionSerializer extends PassportSerializer {
   constructor(@Inject('AUTH_SERVICE') private readonly service) {
     super();
   }
+
   // si GoogleStrategy retorna un usuario entonces se ejecuta esto:
   serializeUser(user: any, done: Function) {
     done(null, user);

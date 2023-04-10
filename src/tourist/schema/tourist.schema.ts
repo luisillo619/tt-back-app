@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 
-
 export type TouristDocument = HydratedDocument<Tourist>;
 
 @Schema()
@@ -11,7 +10,7 @@ export class Tourist {
 
   @Prop({ required: true })
   lastName: string;
-  
+
   @Prop({ required: true })
   email: string;
 
@@ -39,16 +38,11 @@ export class Tourist {
   @Prop()
   responsibleAssociated: mongoose.Schema.Types.ObjectId;
 
-
-
-
-
   @Prop()
   resetToken: string;
 
   @Prop()
   resetTokenExpiresAt: Date;
 }
-
 
 export const TouristSchema = SchemaFactory.createForClass(Tourist);

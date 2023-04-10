@@ -1,16 +1,16 @@
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class TouristUpdateDto {
-    @IsNotEmpty()
-    firstName: string;
+  @IsNotEmpty()
+  firstName: string;
 
-    @IsNotEmpty()
-    lastName: string;
+  @IsNotEmpty()
+  lastName: string;
 
-    @IsEmail()
-    @IsNotEmpty()
-    email: string;
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 
-    @IsNotEmpty()
-    phoneNumber: number;
+  @IsNotEmpty()
+  phoneNumber: number;
 }

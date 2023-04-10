@@ -1,6 +1,5 @@
-import { ExecutionContext } from '@nestjs/common';
+import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
 
 // ACTIVA EL MODAL DE GOOGLE Y GUARDA LA SESION GRACIAS A SERALIZER DESPUES DE RETORNAR USER EN GOOGLESTRATEGY
 @Injectable()
@@ -8,9 +7,10 @@ export class GoogleAuthGuard extends AuthGuard('google') {
   // METODO 1 PARA PROMPT SELECT_ACCOUNT
   constructor() {
     super({
-      prompt: 'select_account consent',
+      prompt: 'select_account consent'
     });
   }
+
   async canActivate(context: ExecutionContext) {
     const activate = (await super.canActivate(context)) as boolean;
     const request = context.switchToHttp().getRequest();
