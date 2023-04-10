@@ -15,6 +15,7 @@ import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthTouristModule } from './auth/auth.module';
 import { RepositoryModule } from './repository/repository.module';
 import { PassportModule } from '@nestjs/passport';
+import { AuthGoogleController } from './auth-google/auth-google.controller';
 
 @Module({
   imports: [
@@ -34,11 +35,11 @@ import { PassportModule } from '@nestjs/passport';
     ChatModule,
     TouristModule,
     ClaimModule,
-    ResponsibleModule,    
+    ResponsibleModule,
     AuthTouristModule,
     RepositoryModule
   ],
-  controllers: [],
+  controllers: [AuthGoogleController],
   providers: []
 })
 export class AppModule {}

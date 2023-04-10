@@ -48,36 +48,45 @@ export class BaseRepository<T> {
     }
 
     //Actualiza 
-    // async update(id:string, object: any): Promise<T>{
-    //     const updated = await this.BaseModel.findByIdAndUpdate(object,object);
-    //     return updated.save();
-    // }
+    async update(body, id): Promise<T> {
+      const user = await this.BaseModel.findByIdAndUpdate(id, body, {
+        new: true,
+      });
+      if (!user) {
+        throw new HttpException('update error', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+      return user;
+    }
 
     // Validacion de usuario por Google
-      async validateUser(details: any): Promise<T> {
-        try {
-          const { email, fullName, subject, provider } = details;
-          const responsible = await this.BaseModel.findOne({
-            provider: provider,
-            subject: subject,
+    async validateUser(details: any): Promise<T> {
+      try {
+        const { email, fullName, subject, provider, picture } = details;
+        const user = await this.BaseModel.findOne({
+          provider: provider,
+          subject: subject,
+        });
+        if (!user) {
+          console.log('user not Found, creating...');
+          const newUser = new this.BaseModel({
+            email,
+            picture,
+            firstName: fullName.split(' ')[0],
+            lastName: fullName.split(' ')[1],
+            provider,
+            subject,
+            rol: this.modelName.toString()
           });
-          if (!responsible) {
-            console.log('user not Found, creating...');
-            const newResponsible = new this.BaseModel({
-              email,
-              name: fullName.split(' ')[0],
-              lastName: fullName.split(' ')[1],
-              provider,
-              subject
-            });
-            await newResponsible.save();
-            return newResponsible;
-          } else return responsible;
-        } catch (error) {
-          throw new HttpException(
-            `Could not validate ${this.modelName}`,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-          );
-        }
+  
+          await newUser.save();
+          return newUser;
+        } else return user;
+      } catch (error) {
+        throw new HttpException(
+          `Could not validate ${this.modelName}`,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
       }
-}
+    }
+  }
+
