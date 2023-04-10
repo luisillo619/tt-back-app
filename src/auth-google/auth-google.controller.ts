@@ -11,7 +11,7 @@ export class AuthGoogleController {
   @Get('/')
   handleLogin(@Res() response: Response) {
     //user
-    return response.redirect(`${process.env.API_URL}/user/auth/google`);
+    return response.redirect(`${process.env.API_URL}/responsible/auth/google`);
     //admin
   }
 

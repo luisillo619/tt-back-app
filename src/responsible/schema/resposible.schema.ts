@@ -56,6 +56,10 @@ export class Responsible {
 
   @Prop({ enum: ResponsibleType })
   responsibleType: ResponsibleType;
+
+  @Prop()
+  rol: string
+
   // AGENCY
   //   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Agency' }] })
   //   agency: Agency[]; // importar la clase Agency
