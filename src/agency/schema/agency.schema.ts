@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type AgencyDocument = HydratedDocument<Agency>;
 
@@ -13,6 +13,9 @@ export class Agency {
 
   @Prop({ required: true })
   password: string;
+
+  @Prop()
+  cnpj: string;
 
   @Prop()
   phoneNumber: number;
@@ -38,8 +41,8 @@ export class Agency {
   @Prop()
   banners: string[];
 
-//   @Prop({ type: [{ type: ObjectId, ref: 'AgencyUser' }] })
-//   agencyUsers: AgencyUser[];
+  //   @Prop({ type: [{ type: ObjectId, ref: 'AgencyUser' }] })
+  //   agencyUsers: AgencyUser[];
 
   @Prop()
   sellers: string[];
@@ -49,6 +52,9 @@ export class Agency {
 
   @Prop()
   trip: string[];
+
+  @Prop()
+  googleId: string;
 }
 
 export const AgencySchema = SchemaFactory.createForClass(Agency);
