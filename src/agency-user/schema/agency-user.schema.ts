@@ -5,25 +5,25 @@ export type AgencyUserDocument = HydratedDocument<AgencyUser>;
 @Schema()
 export class AgencyUser {
   @Prop()
-  agencyUserId: number;
+  agencyUserId: string;
 
-  @Prop()
+  @Prop({ required: true })
   agencyUserName: string;
 
-  @Prop()
+  @Prop({ required: true })
+  email: string;
+
+  @Prop({ required: true })
   password: string;
 
-  @Prop()
-  email: string;
+  @Prop({ required: true })
+  phoneNumber: string;
 
   @Prop()
   transportIds: string;
 
   @Prop()
   roleId: string;
-
-  @Prop()
-  phoneNumber: number;
 
   @Prop()
   isActive: boolean;
