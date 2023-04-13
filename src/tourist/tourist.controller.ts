@@ -1,13 +1,34 @@
 import { Controller, NotFoundException, InternalServerErrorException } from '@nestjs/common';
-import { Get, UseGuards, Body, Param, Post, Req } from '@nestjs/common/decorators';
-import { GoogleAuthGuard } from 'src/auth-google/utils/Guards';
+import { Get, UseGuards, Body, Param, Post, Req, Res } from '@nestjs/common/decorators';
+
 import { TouristService } from './tourist.service';
 import { TouristRegistrationDto } from './dto/tourist-registration.dto';
 import { Tourist } from './schema/tourist.schema';
+import { GoogleTouristGuard } from './utils/guardian.tourist.google.auth';
 
 @Controller('tourist')
 export class TouristController {
   constructor(private readonly touristService: TouristService) {}
+
+ // AUTH GOOGLE
+ @Get("google")
+ @UseGuards(GoogleTouristGuard)
+ async googleAuth(@Req() req) {}
+
+ @Get('redirect')
+ @UseGuards(GoogleTouristGuard)
+ redirect(@Req() request, @Res() response: any) {
+   const userAgent = request.headers['user-agent'];
+
+   if (/mobile/i.test(userAgent)) {
+     if (request.user) {
+       return response.redirect(`${process.env.DEEP_LINK_CLIENT}myapp/home`);
+     }
+     return 'Not Authenticated';
+   }
+   return response.redirect(`${process.env.API_URL}/api/auth/google/status`);
+ }
+
 
   @Get()
   async findAll(): Promise<Tourist[]> {
@@ -40,18 +61,7 @@ export class TouristController {
     }
   }
 
-  // AUTH GOOGLE
-  @Get('auth/google')
-  @UseGuards(GoogleAuthGuard) // se encarga de mostrar la pagina para el login de google
-  handleAuthGoogle() {
-    return 'Google Auth';
-  }
-
-  @Get('status')
-  userStatus(@Req() request: Request & { user: any }) {
-    if (request.user) return request.user;
-    return 'Not Authenticated';
-  }
+ 
 }
 
 // @Put(':id')

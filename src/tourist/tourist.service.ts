@@ -36,7 +36,14 @@ export class TouristService {
     });
 
     return createdTourist;
-  } // POST a http://localhost:3000/tourist/register con: { "firstName": "Carlos", "lastName": "Reyes", "email": "carlos@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
+  } 
+  
+  async validateUser(details: any): Promise<Tourist> {
+    return this._touristRepository.validateUser(details);
+  }
+
+  
+  // POST a http://localhost:3000/tourist/register con: { "firstName": "Carlos", "lastName": "Reyes", "email": "carlos@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
 
   // async update(id: string, updateDto: TouristUpdateDto): Promise<Tourist> {
   //     const { firstName, lastName, email, phoneNumber } = updateDto;

@@ -1,34 +1,34 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PassportModule } from '@nestjs/passport';
+import { Tourist } from './schema/tourist.schema';
+import { TouristSchema } from './schema/tourist.schema';
 import { TouristController } from './tourist.controller';
-import { TouristService } from './tourist.service';
 import { TouristRepository } from './tourist.repository';
-import { Tourist, TouristSchema } from './schema/tourist.schema';
-import { GoogleStrategy } from '../auth-google/utils/GoogleStrategy';
-import { SessionSerializer } from '../auth-google/utils/Serializer';
-import { AuthTouristService } from './tourist.authService';
+import { TouristService } from './tourist.service';
+import { GoogleTouristGuard } from './utils/guardian.tourist.google.auth';
+import { GoogleTouristStrategy } from './strategy/tourist.strategy';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       {
         name: Tourist.name,
-        schema: TouristSchema
-      }
-    ])
+        schema: TouristSchema,
+      },
+    ]),
+    PassportModule.register({ defaultStrategy: 'googleTourist' }),
   ],
   controllers: [TouristController],
   providers: [
-    GoogleStrategy,
-    SessionSerializer,
-
-    {
-      provide: 'AUTH_SERVICE',
-      useClass: AuthTouristService
-    },
-
     TouristService,
-    TouristRepository
+    TouristRepository,
+    GoogleTouristStrategy,
+    GoogleTouristGuard,
+  ],
+
+  exports:[
+    TouristService
   ]
 })
 export class TouristModule {}

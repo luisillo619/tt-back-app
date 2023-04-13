@@ -5,19 +5,19 @@ export type TouristDocument = HydratedDocument<Tourist>;
 
 @Schema()
 export class Tourist {
-  @Prop({ required: true })
+  @Prop()
   firstName: string;
 
-  @Prop({ required: true })
+  @Prop()
   lastName: string;
 
-  @Prop({ required: true })
+  @Prop()
   email: string;
 
-  @Prop({ required: true })
+  @Prop()
   phoneNumber: string;
 
-  @Prop({ required: true })
+  @Prop()
   password: string;
 
   @Prop()
@@ -43,6 +43,15 @@ export class Tourist {
 
   @Prop()
   resetTokenExpiresAt: Date;
+
+  @Prop({required:true})
+  role: string;
+
+  @Prop({ required: true })
+  provider: string
+
+  @Prop({ required: true })
+  subject: string
 }
 
 export const TouristSchema = SchemaFactory.createForClass(Tourist);

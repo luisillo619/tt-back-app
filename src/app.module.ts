@@ -15,7 +15,9 @@ import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthTouristModule } from './auth/auth.module';
 import { RepositoryModule } from './repository/repository.module';
 import { PassportModule } from '@nestjs/passport';
-import { AuthGoogleController } from './auth-google/auth-google.controller';
+import { AppController } from './app.controllers';
+import { SerializerModule } from './serialize/serialize.module';
+
 
 @Module({
   imports: [
@@ -37,9 +39,10 @@ import { AuthGoogleController } from './auth-google/auth-google.controller';
     ClaimModule,
     ResponsibleModule,
     AuthTouristModule,
-    RepositoryModule
+    RepositoryModule,
+    SerializerModule
   ],
-  controllers: [AuthGoogleController],
+  controllers: [AppController],
   providers: []
 })
 export class AppModule {}

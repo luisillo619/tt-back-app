@@ -1,21 +1,19 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
-// ACTIVA EL MODAL DE GOOGLE Y GUARDA LA SESION GRACIAS A SERALIZER DESPUES DE RETORNAR USER EN GOOGLESTRATEGY
+// Activa el modal de google y si la auth es correcta guarda la sesion en express-session
 @Injectable()
-export class GoogleAuthGuard extends AuthGuard('google') {
-  // METODO 1 PARA PROMPT SELECT_ACCOUNT
+export class GoogleTouristGuard extends AuthGuard('googleTourist') {
   constructor() {
-    super({
-      prompt: 'select_account consent'
-    });
+    super();
   }
 
   async canActivate(context: ExecutionContext) {
+    
     const activate = (await super.canActivate(context)) as boolean;
     const request = context.switchToHttp().getRequest();
-
-    // logIn activa passport para usar sessiones y solicitar la auth del ususario
+    
+    // Guarda la session llendo a Serializer
     await super.logIn(request);
     return activate;
   }
