@@ -6,13 +6,12 @@ import { ResponsibleRepository } from './responsible.repository';
 export class ResponsibleService {
   constructor(private readonly _responsibleRepository: ResponsibleRepository) {}
 
-  async findAll(): Promise<Responsible[]> {
-    const users = await this._responsibleRepository.findAll();
-    return users;
+  async validateUser(details: any): Promise<Responsible> {
+    return this._responsibleRepository.validateUser(details);
   }
 
-  async update(body: any, id: string): Promise<Responsible>{
-    const user = await this._responsibleRepository.update(body, id);
+  async findById(id: string): Promise<Responsible> {
+    const user = await this._responsibleRepository.findById(id);
     return user;
   }
 }

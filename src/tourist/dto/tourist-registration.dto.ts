@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
 
 export class TouristRegistrationDto {
   @IsNotEmpty()
-  name: string;
+  firstName: string;
 
   @IsNotEmpty()
   lastName: string;
@@ -10,6 +10,9 @@ export class TouristRegistrationDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
+
+  @IsNotEmpty()
+  phoneNumber: string;
 
   @IsNotEmpty()
   @Matches(
@@ -20,10 +23,4 @@ export class TouristRegistrationDto {
     }
   )
   password: string;
-
-  @IsNotEmpty()
-  identityNumber: string;
-
-  @IsNotEmpty()
-  phoneNumber: string;
 }
