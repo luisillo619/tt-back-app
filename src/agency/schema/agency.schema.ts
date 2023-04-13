@@ -1,20 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type AgencyDocument = HydratedDocument<Agency>;
 
 @Schema()
 export class Agency {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop({ unique: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true })
   password: string;
 
-  @Prop()
+  @Prop({ required: true })
   phoneNumber: number;
 
   @Prop()
@@ -38,8 +38,8 @@ export class Agency {
   @Prop()
   banners: string[];
 
-//   @Prop({ type: [{ type: ObjectId, ref: 'AgencyUser' }] })
-//   agencyUsers: AgencyUser[];
+  //   @Prop({ type: [{ type: ObjectId, ref: 'AgencyUser' }] })
+  //   agencyUsers: AgencyUser[];
 
   @Prop()
   sellers: string[];

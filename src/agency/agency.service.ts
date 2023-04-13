@@ -1,31 +1,38 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Agency, AgencyDocument } from './schema/agency.schema';
-import { AgencyRegistrationDTO } from './dto/agency.dto';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-
+import { Agency } from './schema/agency.schema';
+import { AgencyRegistrationDTO } from './dto/agency.update.dto';
+import { AgencyRepository } from './agency.repository';
 
 @Injectable()
-export class AgencyService {  
-  constructor(@InjectModel(Agency.name) private readonly touristModel: Model<AgencyDocument>) {}
+export class AgencyService {
+  constructor(private readonly _agencyRepository: AgencyRepository) {}
+
+  async findById(id: string): Promise<Agency> {
+    const tourist = await this._agencyRepository.findById(id);
+    return tourist;
+  }
+
+  async findAll(): Promise<Agency[]> {
+    return this._agencyRepository.findAll();
+  }
 
   async create(agencyRegistrationDTO: AgencyRegistrationDTO): Promise<Agency> {
     const { name, email, phoneNumber, password } = agencyRegistrationDTO;
-
-    const agencyWithEmail = await this.touristModel.findOne({ email }).exec();
+    console.log({ name, email, phoneNumber, password });
+    const agencyWithEmail = await this._agencyRepository.findByEmail(email);
     if (agencyWithEmail) {
-        throw new BadRequestException('Email already registered');
+      throw new BadRequestException('Email already registered');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const createdAgency = new this.touristModel({
-        name,
-        email,
-        phoneNumber,
-        password: hashedPassword,
+    const agencyTourist = this._agencyRepository.create({
+      name,
+      email,
+      phoneNumber,
+      password: hashedPassword
     });
 
-    return createdAgency.save();
-  }//POST a http://localhost:3000/agency/register con: { "name": "Agencia X", "email": "agenciaX@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
+    return agencyTourist;
+  } // POST a http://localhost:3000/agency/register con: { "name": "Agencia X", "email": "agenciaX@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
 }
