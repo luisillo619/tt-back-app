@@ -1,92 +1,88 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { compare } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 import { Tourist, TouristDocument } from '../tourist/schema/tourist.schema';
 import { Agency, AgencyDocument } from '../agency/schema/agency.schema';
 import { LoginAuthDto } from './dto/login-touris-auth.dto';
-import { compare } from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
-
 
 @Injectable()
 export class AuthService {
-    constructor(
-        @InjectModel(Tourist.name) private readonly touristModel: Model<TouristDocument>,
-        @InjectModel(Agency.name) private readonly agencyModel: Model<AgencyDocument>,
-        private jwtService: JwtService
-    ) {}
+  constructor(
+    @InjectModel(Tourist.name) private readonly touristModel: Model<TouristDocument>,
+    @InjectModel(Agency.name) private readonly agencyModel: Model<AgencyDocument>,
+    private jwtService: JwtService
+  ) {}
 
-    async login(loginObject: LoginAuthDto, type: string) {
-        const { email, password } = loginObject;
-        let userModel, userNotFoundMsg, passwordIncorrectMsg;
-        if (type === 'tourist') {
-            userModel = this.touristModel;
-            userNotFoundMsg = 'USER_NOT_FOUND';
-            passwordIncorrectMsg = 'PASSWORD_INCORRECT_TOURIST';
-        } else if (type === 'agency') {
-            userModel = this.agencyModel;
-            userNotFoundMsg = 'AGENCY_NOT_FOUND';
-            passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
-        } else {
-            throw new HttpException('INVALID_USER_TYPE', HttpStatus.FORBIDDEN);
-        }
-    
-        const findUser = await userModel.findOne({ email });
-        if (!findUser) throw new HttpException(userNotFoundMsg, HttpStatus.FORBIDDEN);
-        const checkPassword = await compare(password, findUser.password)
-    
-        if (!checkPassword) throw new HttpException(passwordIncorrectMsg, HttpStatus.FORBIDDEN);
-    
-        const payload = { id: findUser._id, email: findUser.email }
-        const token = this.jwtService.sign(payload);
-    
-        const data = {
-            user: findUser,
-            token,
-        }
-        return data;
-    }
+  async tourist(touristObjectLogin: LoginAuthDto) {
+    const { email, password } = touristObjectLogin;
+    console.log({ email, password });
+    const findTourist = await this.touristModel.findOne({ email });
+    console.log(findTourist);
+    if (!findTourist) throw new HttpException('USER_NOT_FOUND', HttpStatus.FORBIDDEN);
+    const checkPassword = await compare(password, findTourist.password);
 
+    if (!checkPassword) throw new HttpException('PASSWORD_INCORRECT_TOURIST', HttpStatus.FORBIDDEN);
 
-    // async tourist(touristObjectLogin: LoginAuthDto) {
-    //     const { email, password } = touristObjectLogin;
-    //     console.log({ email, password })
-    //     const findTourist = await this.touristModel.findOne({ email });
-    //     console.log(findTourist)
-    //     if (!findTourist) throw new HttpException('USER_NOT_FOUND', HttpStatus.FORBIDDEN);
-    //     const checkPassword = await compare(password, findTourist.password)
+    const payload = { id: findTourist._id, email: findTourist.email };
+    const token = this.jwtService.sign(payload);
 
-    //     if (!checkPassword) throw new HttpException('PASSWORD_INCORRECT_TOURIST', HttpStatus.FORBIDDEN);
+    const data = {
+      user: findTourist,
+      token
+    };
+    return data;
+  }
 
-    //     const payload = { id: findTourist._id, email: findTourist.email }
-    //     const token = this.jwtService.sign(payload);
+  async agency(agencyObjectLogin: LoginAuthDto) {
+    const { email, password } = agencyObjectLogin;
+    console.log({ email, password });
+    const findAgency = await this.agencyModel.findOne({ email });
+    console.log(findAgency);
+    if (!findAgency) throw new HttpException('AGENCY_NOT_FOUND', HttpStatus.FORBIDDEN);
+    const checkPassword = await compare(password, findAgency.password);
 
-    //     const data = {
-    //         user: findTourist,
-    //         token,
-    //     }
-    //     return data;
-    // }
+    if (!checkPassword) throw new HttpException('PASSWORD_INCORRECT_AGENCY', HttpStatus.FORBIDDEN);
 
+    const payload = { id: findAgency._id, email: findAgency.email };
+    const token = this.jwtService.sign(payload);
 
-    // async agency(agencyObjectLogin: LoginAuthDto) {
-    //     const { email, password } = agencyObjectLogin;
-    //     console.log({ email, password })
-    //     const findAgency = await this.agencyModel.findOne({ email });
-    //     console.log(findAgency)
-    //     if (!findAgency) throw new HttpException('AGENCY_NOT_FOUND', HttpStatus.FORBIDDEN);
-    //     const checkPassword = await compare(password, findAgency.password)
+    const data = {
+      user: findAgency,
+      token
+    };
+    return data;
+  }
+  //   async login(loginObject: LoginAuthDto, type: string) {
+  //     const { email, password } = loginObject;
+  //     let userModel;
+  //     let userNotFoundMsg;
+  //     let passwordIncorrectMsg;
+  //     if (type === 'tourist') {
+  //       userModel = this.touristModel;
+  //       userNotFoundMsg = 'USER_NOT_FOUND';
+  //       passwordIncorrectMsg = 'PASSWORD_INCORRECT_TOURIST';
+  //     } else if (type === 'agency') {
+  //       userModel = this.agencyModel;
+  //       userNotFoundMsg = 'AGENCY_NOT_FOUND';
+  //       passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
+  //     } else {
+  //       throw new HttpException('INVALID_USER_TYPE', HttpStatus.FORBIDDEN);
+  //     }
 
-    //     if (!checkPassword) throw new HttpException('PASSWORD_INCORRECT_AGENCY', HttpStatus.FORBIDDEN);
+  //     const findUser = await userModel.findOne({ email });
+  //     if (!findUser) throw new HttpException(userNotFoundMsg, HttpStatus.FORBIDDEN);
+  //     const checkPassword = await compare(password, findUser.password);
 
-    //     const payload = { id: findAgency._id, email: findAgency.email }
-    //     const token = this.jwtService.sign(payload);
+  //     if (!checkPassword) throw new HttpException(passwordIncorrectMsg, HttpStatus.FORBIDDEN);
 
-    //     const data = {
-    //         user: findAgency,
-    //         token,
-    //     }
-    //     return data;
-    // }
-    
+  //     const payload = { id: findUser._id, email: findUser.email };
+  //     const token = this.jwtService.sign(payload);
+
+  //     const data = {
+  //       user: findUser,
+  //       token
+  //     };
+  //     return data;
 }

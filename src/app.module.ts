@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
 import { AgencyModule } from './agency/agency.module';
+import { AgencyUserModule } from './agency-user/agency-user.module';
 import { BannerModule } from './banner/banner.module';
-import { SellerModule } from './seller/seller.module';
+// import { SellerModule } from './seller/seller.module';
 import { TripModule } from './trip/trip.module';
 import { RoleModule } from './role/role.module';
 import { AdminModule } from './admin/admin.module';
@@ -14,8 +16,6 @@ import { ClaimModule } from './claim/claim.module';
 import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthTouristModule } from './auth/auth.module';
 import { RepositoryModule } from './repository/repository.module';
-import { PassportModule } from '@nestjs/passport';
-import { AuthGoogleController } from './auth-google/auth-google.controller';
 
 @Module({
   imports: [
@@ -27,7 +27,7 @@ import { AuthGoogleController } from './auth-google/auth-google.controller';
     PassportModule.register({ session: true }),
     AgencyModule,
     BannerModule,
-    SellerModule,
+    // SellerModule,
     TripModule,
     RoleModule,
     AdminModule,
@@ -35,11 +35,12 @@ import { AuthGoogleController } from './auth-google/auth-google.controller';
     ChatModule,
     TouristModule,
     ClaimModule,
+    AgencyUserModule,
     ResponsibleModule,
     AuthTouristModule,
     RepositoryModule
   ],
-  controllers: [AuthGoogleController],
+  controllers: [],
   providers: []
 })
 export class AppModule {}
