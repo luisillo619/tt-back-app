@@ -20,12 +20,12 @@ export class TouristController {
     try {
       return await this.touristService.findAll();
     } catch (error) {
-      throw new InternalServerErrorException('Failed to fetch all users');
+      throw new InternalServerErrorException('Failed to fetch all tourist');
     }
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<Tourist> {
+  async findById(@Param('id') id: string) {
     try {
       const tourist = await this.touristService.findById(id);
       if (!tourist) {
@@ -38,9 +38,10 @@ export class TouristController {
   }
 
   @Post('/register')
-  async create(@Body() touristRegistrationDto: TouristRegistrationDto): Promise<Tourist> {
+  async create(@Body() touristRegistrationDto: TouristRegistrationDto) {
     try {
-      return await this.touristService.create(touristRegistrationDto);
+      const result = await this.touristService.create(touristRegistrationDto);
+      return result;
     } catch (error) {
       throw new NotFoundException(`The tourist could not be created`);
     }
@@ -48,23 +49,23 @@ export class TouristController {
 
   // @Put(':id')
   // async update(@Param('id') id: string, @Body() updateDto: TouristUpdateDto): Promise<Tourist> {
-  //   try {
-  //     return await this.touristService.update(id, updateDto);
-  //   } catch (error) {
-  //     if (error instanceof mongoose.Error.CastError || error instanceof mongoose.Error.ValidationError) {
-  //       throw new BadRequestException('Invalid request body');
-  //     } else {
-  //       throw error;
+  //     try {
+  //         return await this.touristService.update(id, updateDto);
+  //     } catch (error) {
+  //         if (error instanceof mongoose.Error.CastError || error instanceof mongoose.Error.ValidationError) {
+  //         throw new BadRequestException('Invalid request body');
+  //         } else {
+  //         throw error;
+  //         }
   //     }
-  //   }
   // }
 
   // @Delete(':id')
   // async delete(@Param('id') id: string): Promise<Tourist> {
-  //   try {
-  //     return await this.touristService.delete(id);
-  //   } catch (error) {
-  //     throw new InternalServerErrorException('Failed to delete tourist');
-  //   }
+  //     try {
+  //         return await this.touristService.delete(id);
+  //     } catch (error) {
+  //         throw new InternalServerErrorException('Failed to delete tourist');
+  //     }
   // }
 }
