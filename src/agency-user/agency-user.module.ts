@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-
-import { AgencyModule } from '../agency/agency.module';
-import { AgencyService } from '../agency/agency.service';
-
-import { AgencyUserService } from './agency-user.service';
 import { AgencyUserController } from './agency-user.controller';
-
-import { AgencyUserSchema, AgencyUser } from './schema/agency-user.schema';
+import { AgencyUserService } from './agency-user.service';
+import { AgencyUserRepository } from './agency-user.repository';
+import { AgencyUser, AgencyUserSchema } from './schema/agency-user.schema';
 
 @Module({
   imports: [
-    AgencyModule,
     MongooseModule.forFeature([
       {
         name: AgencyUser.name,
@@ -20,6 +15,6 @@ import { AgencyUserSchema, AgencyUser } from './schema/agency-user.schema';
     ])
   ],
   controllers: [AgencyUserController],
-  providers: [AgencyUserService, AgencyService]
+  providers: [AgencyUserService, AgencyUserRepository]
 })
 export class AgencyUserModule {}
