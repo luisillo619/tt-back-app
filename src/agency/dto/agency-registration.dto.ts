@@ -1,15 +1,15 @@
 import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
 
-export class TouristUpdateDto {
+export class AgencyRegistrationDTO {
   @IsNotEmpty()
   name: string;
-
-  @IsNotEmpty()
-  lastName: string;
 
   @IsEmail()
   @IsNotEmpty()
   email: string;
+
+  @IsNotEmpty()
+  phoneNumber: string;
 
   @IsNotEmpty()
   @Matches(
@@ -20,10 +20,4 @@ export class TouristUpdateDto {
     }
   )
   password: string;
-
-  @IsNotEmpty()
-  identityNumber: string;
-
-  @IsNotEmpty()
-  phoneNumber: string;
 }
