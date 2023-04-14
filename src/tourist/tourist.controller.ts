@@ -22,7 +22,7 @@ export class TouristController {
 
    if (/mobile/i.test(userAgent)) {
      if (request.user) {
-       return response.redirect(`${process.env.DEEP_LINK_CLIENT}myapp/home`);
+       return response.redirect(`${process.env.DEEP_LINK_CLIENT}myapp/Logged`);
      }
      return 'Not Authenticated';
    }

@@ -18,7 +18,7 @@ export class ResponsibleController {
 
     if (/mobile/i.test(userAgent)) {
       if (request.user) {
-        return response.redirect(`${process.env.DEEP_LINK_CLIENT}myapp/home`);
+        return response.redirect(`${process.env.DEEP_LINK_CLIENT}myapp/Logged`);
       }
       return 'Not Authenticated';
     }
