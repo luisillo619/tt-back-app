@@ -26,4 +26,10 @@ export class AppController {
     if (request.user) return request.user;
     return 'Not Authenticated';
   }
+
+  @Get("logout")
+  async logoutGoogle(@Req() request, @Res() response: Response,){
+     request.session.destroy()
+     response.status(201).json({ message: 'sesion eliminada' });
+  }
 }
