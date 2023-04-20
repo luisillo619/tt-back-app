@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
+import { AgencyRepository } from '../agency/repository/agency.repository';
 import { AgencyService } from '../agency/agency.service';
 import { TouristRepository } from '../tourist/tourist.repository';
 import { TouristService } from '../tourist/tourist.service';
@@ -37,6 +38,7 @@ import { GoogleAuthService } from './google.service';
     TouristService,
     AgencyService,
     TouristRepository,
+    AgencyRepository,
   ],
   exports: [AuthService, PassportModule],
 })

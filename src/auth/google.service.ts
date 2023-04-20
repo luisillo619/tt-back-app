@@ -5,12 +5,15 @@ import { TouristService } from '../tourist/tourist.service';
 import { TouristRegistrationDTO } from '../tourist/dto/tourist-registration.dto';
 import { AgencyService } from '../agency/agency.service';
 
-interface GoogleUser {
+export interface IGoogleUser {
   sub: string;
   given_name: string;
   family_name: string;
+  fullName?: string;
   email: string;
   picture?: string;
+  subject?: string;
+  provider?: string;
 }
 
 @Injectable()
@@ -20,7 +23,7 @@ export class GoogleAuthService {
     private readonly agencyService: AgencyService,
   ) {}
 
-  async createTouristFromGoogle(googleUser: GoogleUser): Promise<TouristRegistrationDTO> {
+  async createTouristFromGoogle(googleUser: IGoogleUser): Promise<TouristRegistrationDTO> {
     const tourist: TouristRegistrationDTO = await this.turistService.create({
       firstName: googleUser.given_name,
       lastName: googleUser.family_name,
@@ -32,7 +35,7 @@ export class GoogleAuthService {
     return tourist;
   }
 
-  async createAgencyFromGoogle(googleUser: GoogleUser): Promise<AgencyRegistrationDTO> {
+  async createAgencyFromGoogle(googleUser: IGoogleUser): Promise<AgencyRegistrationDTO> {
     const agency: AgencyRegistrationDTO = await this.agencyService.createAgency({
       name: googleUser.given_name,
       email: googleUser.email,
@@ -44,7 +47,7 @@ export class GoogleAuthService {
   }
 
   async validateGoogleUser(
-    googleUser: GoogleUser,
+    googleUser: IGoogleUser,
     userType,
   ): Promise<AgencyRegistrationDTO | TouristRegistrationDTO> {
     if (userType === 'TOURIST') {
