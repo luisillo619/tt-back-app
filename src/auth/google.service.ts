@@ -1,9 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 // import { TouristRepository } from 'src/tourist/tourist.repository';
-import { TouristRegistrationDto } from 'src/tourist/dto/tourist-registration.dto';
-import { AgencyRegistrationDTO } from 'src/agency/dto/agency-register.dto';
-import { TouristService } from 'src/tourist/tourist.service';
+import { AgencyRegistrationDTO } from '../agency/dto/agency-register.dto';
+import { TouristService } from '../tourist/tourist.service';
+import { TouristRegistrationDTO } from '../tourist/dto/tourist-registration.dto';
 import { AgencyService } from '../agency/agency.service';
+
+interface GoogleUser {
+  sub: string;
+  given_name: string;
+  family_name: string;
+  email: string;
+  picture?: string;
+}
 
 @Injectable()
 export class GoogleAuthService {
@@ -12,8 +20,8 @@ export class GoogleAuthService {
     private readonly agencyService: AgencyService,
   ) {}
 
-  async createTouristFromGoogle(googleUser: any): Promise<TouristRegistrationDto> {
-    const tourist = await this.turistService.create({
+  async createTouristFromGoogle(googleUser: GoogleUser): Promise<TouristRegistrationDTO> {
+    const tourist: TouristRegistrationDTO = await this.turistService.create({
       firstName: googleUser.given_name,
       lastName: googleUser.family_name,
       email: googleUser.email,
@@ -24,8 +32,8 @@ export class GoogleAuthService {
     return tourist;
   }
 
-  async createAgencyFromGoogle(googleUser: any): Promise<AgencyRegistrationDTO> {
-    const agency = await this.agencyService.createAgency({
+  async createAgencyFromGoogle(googleUser: GoogleUser): Promise<AgencyRegistrationDTO> {
+    const agency: AgencyRegistrationDTO = await this.agencyService.createAgency({
       name: googleUser.given_name,
       email: googleUser.email,
       cnpj: '000000000',
@@ -36,9 +44,9 @@ export class GoogleAuthService {
   }
 
   async validateGoogleUser(
-    googleUser: any,
+    googleUser: GoogleUser,
     userType,
-  ): Promise<AgencyRegistrationDTO | TouristRegistrationDto> {
+  ): Promise<AgencyRegistrationDTO | TouristRegistrationDTO> {
     if (userType === 'TOURIST') {
       // tourist servide
       return this.turistService.getTouristByGoogleId(googleUser.sub);

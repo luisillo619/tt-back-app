@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { TouristService } from 'src/tourist/tourist.service';
-import { AgencyService } from 'src/agency/agency.service';
-import { TouristRepository } from 'src/tourist/tourist.repository';
+
+import { AgencyService } from '../agency/agency.service';
+import { TouristRepository } from '../tourist/tourist.repository';
+import { TouristService } from '../tourist/tourist.service';
 import { jwtConstant } from './jwt.constantes';
 import { JwtStrategy } from './jwt.strategy';
-
 import { AuthService } from './auth.service';
 import { AuthControllerTourist } from './auth.controller';
 import { Tourist, TouristSchema } from '../tourist/schema/tourist.schema';

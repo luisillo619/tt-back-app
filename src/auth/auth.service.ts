@@ -17,9 +17,9 @@ export class AuthService {
 
   async login(loginObject: LoginAuthDto, type: string) {
     const { email, password } = loginObject;
-    let userModel;
-    let userNotFoundMsg;
-    let passwordIncorrectMsg;
+    let userModel: Model<TouristDocument | AgencyDocument>;
+    let userNotFoundMsg: string;
+    let passwordIncorrectMsg: string;
     if (type === 'tourist') {
       userModel = this.touristModel;
       userNotFoundMsg = 'USER_NOT_FOUND';

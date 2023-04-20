@@ -3,7 +3,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 // import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { Tourist } from './schema/tourist.schema';
-import { TouristRegistrationDto } from './dto/tourist-registration.dto';
+import { TouristRegistrationDTO } from './dto/tourist-registration.dto';
 // import { TouristUpdateDto } from './dto/tourist-update.dto';
 import { TouristRepository } from './tourist.repository';
 
@@ -20,8 +20,8 @@ export class TouristService {
     return this._touristRepository.findAll();
   }
 
-  async create(touristRegistrationDto: TouristRegistrationDto): Promise<Tourist> {
-    const { firstName, lastName, email, phoneNumber, password } = touristRegistrationDto;
+  async create(TouristRegistrationDTOs: TouristRegistrationDTO): Promise<Tourist> {
+    const { firstName, lastName, email, phoneNumber, password } = TouristRegistrationDTOs;
 
     const touristWithEmail = await this._touristRepository.findByEmail(email);
     console.log(touristWithEmail);
@@ -41,7 +41,7 @@ export class TouristService {
     return createdTourist;
   }
 
-  async getTouristByGoogleId(googleId: string): Promise<TouristRegistrationDto> {
+  async getTouristByGoogleId(googleId: string): Promise<TouristRegistrationDTO> {
     return this._touristRepository.findOne({ googleId });
   }
 
