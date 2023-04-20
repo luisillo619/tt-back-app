@@ -2,19 +2,14 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Body,
   Param,
-  Delete,
-  UseGuards,
   NotFoundException,
   InternalServerErrorException,
-  BadRequestException,
 } from '@nestjs/common';
-import mongoose from 'mongoose';
+
 import { TouristService } from './tourist.service';
 import { TouristRegistrationDTO } from './dto/tourist-registration.dto';
-import { TouristUpdateDto } from './dto/tourist-update.dto';
 import { Tourist } from './schema/tourist.schema';
 
 @Controller('tourist')
@@ -44,9 +39,9 @@ export class TouristController {
   }
 
   @Post('/register')
-  async create(@Body() TouristRegistrationDTO: TouristRegistrationDTO) {
+  async create(@Body() TouristRegistrationDto: TouristRegistrationDTO) {
     try {
-      const result = await this.touristService.create(TouristRegistrationDTO);
+      const result = await this.touristService.create(TouristRegistrationDto);
       return result;
     } catch (error) {
       throw new NotFoundException(`The tourist could not be created`);
@@ -75,3 +70,25 @@ export class TouristController {
   //     }
   // }
 }
+
+// @Put(':id')
+// async update(@Param('id') id: string, @Body() updateDto: TouristUpdateDto): Promise<Tourist> {
+//   try {
+//     return await this.touristService.update(id, updateDto);
+//   } catch (error) {
+//     if (error instanceof mongoose.Error.CastError || error instanceof mongoose.Error.ValidationError) {
+//       throw new BadRequestException('Invalid request body');
+//     } else {
+//       throw error;
+//     }
+//   }
+// }
+
+// @Delete(':id')
+// async delete(@Param('id') id: string): Promise<Tourist> {
+//   try {
+//     return await this.touristService.delete(id);
+//   } catch (error) {
+//     throw new InternalServerErrorException('Failed to delete tourist');
+//   }
+// }

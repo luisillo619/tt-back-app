@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 
 import { AgencyDocument } from './schema/agency.schema';
 import { AgencyRegistrationDTO } from './dto/agency-register.dto';
-import { AgencyRepository } from './repository/agency.repository';
+import { AgencyRepository } from './agency.repository';
 
 @Injectable()
 export class AgencyService {

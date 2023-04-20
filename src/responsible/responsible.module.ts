@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { GoogleStrategy } from 'src/auth-google/utils/GoogleStrategy';
-import { AuthGoogleController } from 'src/auth-google/auth-google.controller';
-import { SessionSerializer } from 'src/auth-google/utils/Serializer';
+import { PassportModule } from '@nestjs/passport';
+
 import { ResponsibleController } from './responsible.controller';
 import { ResponsibleService } from './responsible.service';
 import { Responsible, ResponsibleSchema } from './schema/resposible.schema';
 import { ResponsibleRepository } from './responsible.repository';
+import { GoogleResponsibleGuard } from './utils/guardian.responsible.google.auth';
+import { GoogleResponsibleStrategy } from './strategy/responsible.strategy';
 
 @Module({
   imports: [
@@ -16,17 +17,16 @@ import { ResponsibleRepository } from './responsible.repository';
         schema: ResponsibleSchema,
       },
     ]),
+    PassportModule.register({ defaultStrategy: 'googleResponsible' }),
   ],
-  controllers: [ResponsibleController, AuthGoogleController],
+  controllers: [ResponsibleController],
   providers: [
-    GoogleStrategy,
-    SessionSerializer,
-
-    {
-      provide: 'AUTH_SERVICE',
-      useClass: ResponsibleService,
-    },
+    ResponsibleService,
     ResponsibleRepository,
+    GoogleResponsibleStrategy,
+    GoogleResponsibleGuard,
   ],
+
+  exports: [ResponsibleService],
 })
 export class ResponsibleModule {}

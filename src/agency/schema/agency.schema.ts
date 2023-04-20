@@ -5,10 +5,10 @@ export type AgencyDocument = HydratedDocument<Agency>;
 
 @Schema()
 export class Agency {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop({ unique: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop({ required: true })

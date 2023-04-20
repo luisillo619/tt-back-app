@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AgencyController } from './agency.controller';
 import { AgencyService } from './agency.service';
 import { Agency, AgencySchema } from './schema/agency.schema';
-import { AgencyRepository } from './repository/agency.repository';
+import { AgencyRepository } from './agency.repository';
 
 @Module({
   imports: [
