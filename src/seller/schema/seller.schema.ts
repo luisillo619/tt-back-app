@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Agency } from 'src/agency/entities/agency.entity';
 import { Tourist } from 'src/tourist/schema/tourist.schema';
+import { Agency } from '../../agency/schema/agency.schema';
 
 export type SellerDocument = HydratedDocument<Seller>;
 

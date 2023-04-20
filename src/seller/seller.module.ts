@@ -10,11 +10,11 @@ import { Seller, SellerSchema } from './schema/seller.schema';
     MongooseModule.forFeature([
       {
         name: Seller.name,
-        schema: SellerSchema
-      }
-    ])
+        schema: SellerSchema,
+      },
+    ]),
   ],
   controllers: [SellerController],
-  providers: [SellerService, SellerRepository]
+  providers: [SellerService, SellerRepository],
 })
 export class SellerModule {}
