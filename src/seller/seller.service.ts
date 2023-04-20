@@ -2,7 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Seller } from './schema/Seller.schema';
 import { SellerRegistrationDto } from './dto/Seller-registration.dto';
-import { SellerRepository } from './Seller.repository';
+import { SellerRepository } from './seller.repository';
 
 @Injectable()
 export class SellerService {
@@ -30,7 +30,7 @@ export class SellerService {
       lastName,
       email,
       phoneNumber,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     return createdSeller;

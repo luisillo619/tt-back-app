@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { PassportModule } from '@nestjs/passport';
 import { AgencyModule } from './agency/agency.module';
 import { BannerModule } from './banner/banner.module';
 import { SellerModule } from './seller/seller.module';
@@ -14,16 +15,12 @@ import { ClaimModule } from './claim/claim.module';
 import { ResponsibleModule } from './responsible/responsible.module';
 import { AuthTouristModule } from './auth/auth.module';
 import { RepositoryModule } from './repository/repository.module';
-import { PassportModule } from '@nestjs/passport';
-import { AppController } from './app.controllers';
-import { SerializerModule } from './serialize/serialize.module';
-
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true
+      isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGODB_URI),
     PassportModule.register({ session: true }),
@@ -40,10 +37,9 @@ import { SerializerModule } from './serialize/serialize.module';
     ResponsibleModule,
     AuthTouristModule,
     RepositoryModule,
-    SerializerModule
   ],
-  controllers: [AppController],
-  providers: []
+
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
-

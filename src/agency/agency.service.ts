@@ -1,38 +1,31 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Agency } from './schema/agency.schema';
-import { AgencyRegistrationDTO } from './dto/agency.update.dto';
+
+import { AgencyDocument } from './schema/agency.schema';
+import { AgencyRegistrationDTO } from './dto/agency-register.dto';
 import { AgencyRepository } from './agency.repository';
 
 @Injectable()
 export class AgencyService {
   constructor(private readonly _agencyRepository: AgencyRepository) {}
 
-  async findById(id: string): Promise<Agency> {
-    const tourist = await this._agencyRepository.findById(id);
-    return tourist;
-  }
+  async createAgency(agencyRegistrationDTO: AgencyRegistrationDTO): Promise<AgencyDocument> {
+    const { name, email, password } = agencyRegistrationDTO;
 
-  async findAll(): Promise<Agency[]> {
-    return this._agencyRepository.findAll();
-  }
-
-  async create(agencyRegistrationDTO: AgencyRegistrationDTO): Promise<Agency> {
-    const { name, email, phoneNumber, password } = agencyRegistrationDTO;
-    console.log({ name, email, phoneNumber, password });
-    const agencyWithEmail = await this._agencyRepository.findByEmail(email);
+    const agencyWithEmail = await this._agencyRepository.findOne({ email });
     if (agencyWithEmail) {
       throw new BadRequestException('Email already registered');
     }
-
     const hashedPassword = await bcrypt.hash(password, 10);
-    const agencyTourist = this._agencyRepository.create({
+    const createdAgency = this._agencyRepository.create({
       name,
       email,
-      phoneNumber,
-      password: hashedPassword
+      password: hashedPassword,
     });
-
-    return agencyTourist;
+    return createdAgency;
   } // POST a http://localhost:3000/agency/register con: { "name": "Agencia X", "email": "agenciaX@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
+
+  async getAgencyByGoogleId(googleId: string): Promise<AgencyDocument> {
+    return this._agencyRepository.findOne({ googleId });
+  }
 }

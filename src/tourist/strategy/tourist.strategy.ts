@@ -5,10 +5,7 @@ import { Tourist } from '../schema/tourist.schema';
 import { TouristService } from '../tourist.service';
 
 @Injectable()
-export class GoogleTouristStrategy extends PassportStrategy(
-  Strategy,
-  'googleTourist',
-) {
+export class GoogleTouristStrategy extends PassportStrategy(Strategy, 'googleTourist') {
   constructor(private readonly touristService: TouristService) {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -25,18 +22,14 @@ export class GoogleTouristStrategy extends PassportStrategy(
     });
   }
 
-  async validate(
-    accessToken: string,
-    refreshToken: string,
-    profile: any,
-  ): Promise<Tourist> {
-    const user = await this.touristService.validateUser({
-      email: profile.emails[0].value,
-      fullName: profile.displayName,
-      subject: profile.id,
-      provider: profile.provider,
-      picture: profile._json.picture,
-    });
-    return user || null;
-  }
+  // async validate(accessToken: string, refreshToken: string, profile: any): Promise<Tourist> {
+  //   const user = await this.touristService.validateUser({
+  //     email: profile.emails[0].value,
+  //     fullName: profile.displayName,
+  //     subject: profile.id,
+  //     provider: profile.provider,
+  //     picture: profile._json.picture,
+  //   });
+  //   return user || null;
+  // }
 }

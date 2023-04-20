@@ -1,7 +1,10 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
+// import { InjectModel } from '@nestjs/mongoose';
+// import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { Tourist } from './schema/tourist.schema';
-import { TouristRegistrationDto } from './dto/tourist-registration.dto';
+import { TouristRegistrationDTO } from './dto/tourist-registration.dto';
+// import { TouristUpdateDto } from './dto/tourist-update.dto';
 import { TouristRepository } from './tourist.repository';
 
 @Injectable()
@@ -17,8 +20,8 @@ export class TouristService {
     return this._touristRepository.findAll();
   }
 
-  async create(touristRegistrationDto: TouristRegistrationDto): Promise<Tourist> {
-    const { firstName, lastName, email, phoneNumber, password } = touristRegistrationDto;
+  async create(TouristRegistrationDTOs: TouristRegistrationDTO): Promise<Tourist> {
+    const { firstName, lastName, email, phoneNumber, password } = TouristRegistrationDTOs;
 
     const touristWithEmail = await this._touristRepository.findByEmail(email);
     console.log(touristWithEmail);
@@ -32,17 +35,16 @@ export class TouristService {
       lastName,
       email,
       phoneNumber,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     return createdTourist;
-  } 
-  
-  async validateUser(details: any): Promise<Tourist> {
-    return this._touristRepository.validateUser(details);
   }
 
-  
+  async getTouristByGoogleId(googleId: string): Promise<TouristRegistrationDTO> {
+    return this._touristRepository.findOne({ googleId });
+  }
+
   // POST a http://localhost:3000/tourist/register con: { "firstName": "Carlos", "lastName": "Reyes", "email": "carlos@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
 
   // async update(id: string, updateDto: TouristUpdateDto): Promise<Tourist> {

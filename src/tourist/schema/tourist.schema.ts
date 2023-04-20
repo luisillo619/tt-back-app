@@ -11,7 +11,7 @@ export class Tourist {
   @Prop()
   lastName: string;
 
-  @Prop()
+  @Prop({ required: true })
   email: string;
 
   @Prop()
@@ -42,16 +42,9 @@ export class Tourist {
   resetToken: string;
 
   @Prop()
+  googleId: string;
+
+  @Prop()
   resetTokenExpiresAt: Date;
-
-  @Prop({required:true})
-  role: string;
-
-  @Prop({ required: true })
-  provider: string
-
-  @Prop({ required: true })
-  subject: string
 }
-
 export const TouristSchema = SchemaFactory.createForClass(Tourist);

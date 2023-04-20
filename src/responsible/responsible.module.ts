@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Responsible, ResponsibleSchema } from './schema/resposible.schema';
 import { PassportModule } from '@nestjs/passport';
+
 import { ResponsibleController } from './responsible.controller';
-import { GoogleResponsibleStrategy } from './strategy/responsible.strategy';
 import { ResponsibleService } from './responsible.service';
+import { Responsible, ResponsibleSchema } from './schema/resposible.schema';
 import { ResponsibleRepository } from './responsible.repository';
 import { GoogleResponsibleGuard } from './utils/guardian.responsible.google.auth';
+import { GoogleResponsibleStrategy } from './strategy/responsible.strategy';
 
 @Module({
   imports: [
@@ -26,8 +27,6 @@ import { GoogleResponsibleGuard } from './utils/guardian.responsible.google.auth
     GoogleResponsibleGuard,
   ],
 
-  exports:[
-    ResponsibleService
-  ]
+  exports: [ResponsibleService],
 })
 export class ResponsibleModule {}

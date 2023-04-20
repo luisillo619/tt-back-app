@@ -14,7 +14,10 @@ export class Agency {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true })
+  @Prop()
+  cnpj: string;
+
+  @Prop()
   phoneNumber: number;
 
   @Prop()
@@ -49,6 +52,9 @@ export class Agency {
 
   @Prop()
   trip: string[];
+
+  @Prop()
+  googleId: string;
 }
 
 export const AgencySchema = SchemaFactory.createForClass(Agency);

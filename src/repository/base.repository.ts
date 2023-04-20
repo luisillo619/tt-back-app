@@ -38,47 +38,41 @@ export class BaseRepository<T> {
     } catch (error) {
       throw new HttpException(
         `Could not create ${this.modelName}`,
-        HttpStatus.INTERNAL_SERVER_ERROR
+        HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
 
-  // Actualiza
-  async update(body, id): Promise<T> {
-    const user = await this.BaseModel.findByIdAndUpdate(id, body, {
-      new: true
-    });
-    if (!user) {
-      throw new HttpException('update error', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    return user;
+  async findOne(key: any): Promise<T> {
+    return this.BaseModel.findOne({ key }).exec();
   }
+  // Actualiza
+  // async update(id:string, object: any): Promise<T>{
+  //     const updated = await this.BaseModel.findByIdAndUpdate(object,object);
+  //     return updated.save();
+  // }
 
+  // Validacion de usuario por Google
   async validateUser(details: any): Promise<T> {
     try {
-      const { email, fullName, subject, provider, picture } = details;
-      
-      const user = await this.BaseModel.findOne({
+      const { email, fullName, subject, provider } = details;
+      const responsible = await this.BaseModel.findOne({
         provider,
         subject,
-        // si solo se quiere tener una cuenta quitar subject y agregar email
       });
-      if (!user) {
+      if (!responsible) {
         console.log('user not Found, creating...');
-        const newUser = new this.BaseModel({
+        const newResponsible = new this.BaseModel({
           email,
-          picture,
-          firstName: fullName.split(' ')[0],
+          name: fullName.split(' ')[0],
           lastName: fullName.split(' ')[1],
           provider,
           subject,
-          role: this.modelName.toString().toLowerCase(),
         });
-
-        await newUser.save();
-        return newUser;
+        await newResponsible.save();
+        return newResponsible;
       }
-      return user;
+      return responsible;
     } catch (error) {
       throw new HttpException(
         `Could not validate ${this.modelName}`,
