@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { TouristService } from 'src/tourist/tourist.service';
+import { AgencyService } from 'src/agency/agency.service';
+import { TouristRepository } from 'src/tourist/tourist.repository';
 import { jwtConstant } from './jwt.constantes';
 import { JwtStrategy } from './jwt.strategy';
 
@@ -10,6 +13,7 @@ import { AuthControllerTourist } from './auth.controller';
 import { Tourist, TouristSchema } from '../tourist/schema/tourist.schema';
 import { Agency, AgencySchema } from '../agency/schema/agency.schema';
 import { GoogleStrategy } from './strategy/google.stategy';
+import { GoogleAuthService } from './google.service';
 
 @Module({
   imports: [
@@ -25,7 +29,15 @@ import { GoogleStrategy } from './strategy/google.stategy';
     }),
   ],
   controllers: [AuthControllerTourist],
-  providers: [AuthService, JwtStrategy, GoogleStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    GoogleStrategy,
+    GoogleAuthService,
+    TouristService,
+    AgencyService,
+    TouristRepository,
+  ],
   exports: [AuthService, PassportModule],
 })
 export class AuthTouristModule {}
