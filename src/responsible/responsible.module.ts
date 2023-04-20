@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ResponsibleController } from './responsible.controller';
-import { ResponsibleService } from './responsible.service';
-import { Responsible, ResponsibleSchema } from './schema/resposible.schema';
 import { GoogleStrategy } from 'src/auth-google/utils/GoogleStrategy';
 import { AuthGoogleController } from 'src/auth-google/auth-google.controller';
 import { SessionSerializer } from 'src/auth-google/utils/Serializer';
+import { ResponsibleController } from './responsible.controller';
+import { ResponsibleService } from './responsible.service';
+import { Responsible, ResponsibleSchema } from './schema/resposible.schema';
 import { ResponsibleRepository } from './responsible.repository';
 
 @Module({

@@ -15,11 +15,11 @@ import { AgencyUserSchema, AgencyUser } from './schema/agency-user.schema';
     MongooseModule.forFeature([
       {
         name: AgencyUser.name,
-        schema: AgencyUserSchema
-      }
-    ])
+        schema: AgencyUserSchema,
+      },
+    ]),
   ],
   controllers: [AgencyUserController],
-  providers: [AgencyUserService, AgencyService]
+  providers: [AgencyUserService, AgencyService],
 })
 export class AgencyUserModule {}

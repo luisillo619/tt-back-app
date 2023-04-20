@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {
-  Responsible,
-  ResponsibleDocument,
-} from 'src/responsible/schema/resposible.schema';
+import { Responsible, ResponsibleDocument } from 'src/responsible/schema/resposible.schema';
 import { responsibleDetails } from './utils/types';
 import { ResponsibleRepository } from './responsible.repository';
 
