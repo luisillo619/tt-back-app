@@ -46,11 +46,15 @@ export class BaseRepository<T> {
   async findOne(key: any): Promise<T> {
     return this.BaseModel.findOne({ key }).exec();
   }
+  
   // Actualiza
-  // async update(id:string, object: any): Promise<T>{
-  //     const updated = await this.BaseModel.findByIdAndUpdate(object,object);
-  //     return updated.save();
-  // }
+  async update(id: string, object: any): Promise<T> {
+    const updated = await this.BaseModel.findByIdAndUpdate(id, object, { new: true });
+
+    return updated;
+  }
+
+
 
   // Validacion de usuario por Google
   async validateUser(details: any): Promise<T> {

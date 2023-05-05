@@ -17,7 +17,7 @@ export class AgencyRegistrationDTO {
   @IsNotEmpty()
   cnpj: string;
 
-  @IsNotEmpty()
-  @IsString()
-  responsable: string;
+  // @IsNotEmpty()
+  // @IsString()
+  responsable?: string[];
 }

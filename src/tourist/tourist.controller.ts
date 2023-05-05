@@ -4,13 +4,19 @@ import {
   Post,
   Body,
   Param,
+  Put,
   NotFoundException,
   InternalServerErrorException,
+  BadRequestException,
+  Delete
 } from '@nestjs/common';
+import mongoose from 'mongoose';
 
 import { TouristService } from './tourist.service';
 import { TouristRegistrationDTO } from './dto/tourist-registration.dto';
 import { Tourist } from './schema/tourist.schema';
+import { TouristUpdateDto } from './dto/tourist-update.dto';
+
 
 @Controller('tourist')
 export class TouristController {
@@ -48,18 +54,18 @@ export class TouristController {
     }
   }
 
-  // @Put(':id')
-  // async update(@Param('id') id: string, @Body() updateDto: TouristUpdateDto): Promise<Tourist> {
-  //     try {
-  //         return await this.touristService.update(id, updateDto);
-  //     } catch (error) {
-  //         if (error instanceof mongoose.Error.CastError || error instanceof mongoose.Error.ValidationError) {
-  //         throw new BadRequestException('Invalid request body');
-  //         } else {
-  //         throw error;
-  //         }
-  //     }
-  // }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateDto: TouristUpdateDto): Promise<Tourist> {
+      try {
+          return await this.touristService.update(id, updateDto);
+      } catch (error) {
+          if (error instanceof mongoose.Error.CastError || error instanceof mongoose.Error.ValidationError) {
+          throw new BadRequestException('Invalid request body');
+          } else {
+          throw error;
+          }
+      }
+  }
 
   // @Delete(':id')
   // async delete(@Param('id') id: string): Promise<Tourist> {

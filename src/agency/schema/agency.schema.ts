@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { AgencyUser } from 'src/agency-user/schema/agency-user.schema';
 
 export type AgencyDocument = HydratedDocument<Agency>;
 
@@ -36,13 +37,16 @@ export class Agency {
   guide: string;
 
   @Prop()
-  responsable: string;
+  responsable: string[];
 
   @Prop()
   banners: string[];
 
-  //   @Prop({ type: [{ type: ObjectId, ref: 'AgencyUser' }] })
-  //   agencyUsers: AgencyUser[];
+  // Relacion de modelos Agency - UserAgency
+
+  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'AgencyUser' }] })
+  // agencyUsers: AgencyUser[];  
+
 
   @Prop()
   sellers: string[];

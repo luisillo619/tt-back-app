@@ -4,6 +4,7 @@ import { AgencyController } from './agency.controller';
 import { AgencyService } from './agency.service';
 import { Agency, AgencySchema } from './schema/agency.schema';
 import { AgencyRepository } from './agency.repository';
+import { AgencyUser } from 'src/agency-user/schema/agency-user.schema';
 
 @Module({
   imports: [
@@ -13,8 +14,9 @@ import { AgencyRepository } from './agency.repository';
         schema: AgencySchema,
       },
     ]),
+    AgencyUser
   ],
   controllers: [AgencyController],
-  providers: [AgencyService, AgencyRepository],
+  providers: [AgencyService, AgencyRepository, AgencyUser],
 })
 export class AgencyModule {}

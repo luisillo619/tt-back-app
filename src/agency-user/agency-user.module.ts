@@ -17,5 +17,6 @@ import { AgencyUser, AgencyUserSchema } from './schema/agency-user.schema';
   ],
   controllers: [AgencyUserController],
   providers: [AgencyUserService, AgencyService, AgencyUserRepository],
+  exports: [AgencyUser]
 })
 export class AgencyUserModule {}

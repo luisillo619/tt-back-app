@@ -40,7 +40,7 @@ export class GoogleAuthService {
       name: googleUser.given_name,
       email: googleUser.email,
       cnpj: '000000000',
-      responsable: googleUser.given_name,
+      responsable: [googleUser.given_name],
       password: googleUser.email,
     });
     return agency;

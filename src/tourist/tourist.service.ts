@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException,NotFoundException } from '@nestjs/common';
 // import { InjectModel } from '@nestjs/mongoose';
 // import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -6,6 +6,7 @@ import { Tourist } from './schema/tourist.schema';
 import { TouristRegistrationDTO } from './dto/tourist-registration.dto';
 // import { TouristUpdateDto } from './dto/tourist-update.dto';
 import { TouristRepository } from './tourist.repository';
+import { TouristUpdateDto } from './dto/tourist-update.dto';
 
 @Injectable()
 export class TouristService {
@@ -47,24 +48,29 @@ export class TouristService {
 
   // POST a http://localhost:3000/tourist/register con: { "firstName": "Carlos", "lastName": "Reyes", "email": "carlos@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
 
-  // async update(id: string, updateDto: TouristUpdateDto): Promise<Tourist> {
-  //     const { firstName, lastName, email, phoneNumber } = updateDto;
-  //     console.log({ firstName, lastName, email, phoneNumber })
-  //     if (!firstName || !lastName || !email || !phoneNumber) {
-  //         throw new BadRequestException('Missing data');
-  //     }
+  async update(id: string, updateDto: TouristUpdateDto): Promise<Tourist> {
+      const { firstName, lastName, email, phoneNumber } = updateDto;
+      console.log({ firstName, lastName, email, phoneNumber })
+      // if (!firstName || !lastName || !email || !phoneNumber) {
+      //     throw new BadRequestException('Missing data');
+      // }
 
-  //     const existingTourist = await this._touristRepository.findById(id);
-  //     if (!existingTourist) {
-  //         throw new NotFoundException('Tourist not found');
-  //     }
-
-  //     existingTourist.firstName = firstName;
-  //     existingTourist.lastName = lastName;
-  //     existingTourist.email = email;
-
-  //     return existingTourist.save();
-  // }
+      try {
+        const existingTourist = await this._touristRepository.findById(id);
+        if (!existingTourist) {
+            throw new NotFoundException('Tourist not found');
+        }
+        const touristUpdated = await this._touristRepository.update(id, updateDto)
+        // existingTourist.firstName = firstName;
+        // existingTourist.lastName = lastName;
+        // existingTourist.email = email;
+        // this._touristRepository.
+        return touristUpdated
+      } catch (error) {
+        throw new Error('ERROR_fINDING_OR_UPDATING_TOURIST');
+      }
+     
+  }
 
   // async delete(id: string): Promise<Tourist> {
   //     const tourist = await this._touristRepository.findById(id);

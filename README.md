@@ -34,8 +34,22 @@ $ npm run start:dev
 ## Entidad Tourist
 <p>Para la entidad Tourist: "http://localhost:3000/touist"</p>
 
-- Obtener todos los turistas------>Solicitud GET a "http://localhost:3000/touist"
-- Obtener un turista por su id---->Solicitud GET a "http://localhost:3000/touist/:id"
-- Registrar un turista-------------->Solicitud POST a "http://localhost:3000/touist/register"
-- Acutalizar un turista------------->Solicitud PUT a "http://localhost:3000/touist/:id"
+- Obtener todos los turistas------>Solicitud GET a "http://localhost:3000/touist" OK
+
+- Obtener un turista por su id---->Solicitud GET a "http://localhost:3000/touist/:id" OK
+
+- Registrar un turista-------------->Solicitud POST a "http://localhost:3000/touist/register" OK
+
+- Acutalizar un turista------------->Solicitud PUT a "http://localhost:3000/touist/:id" OK (Todavia se tiene que implementar el pedido del token)
+
+
 - Eliminar un turista--------------->Solicitud DELETE a "http://localhost:3000/touist/:id"
+
+
+
+- Registrar una agencia------------->Solicitud Post a "http://localhost:3001/agency/register"-----{ "name": "Agencia X", "email": "agenciaX@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344", "responsable": "","cnpj":"123456" }
+
+- Login una agencia-------------->Solicitud Post a "http://localhost:3001/login"-----{  "email": "agenciaX@gmail.com", "password": "Carlos..14"}
+
+- 
+
