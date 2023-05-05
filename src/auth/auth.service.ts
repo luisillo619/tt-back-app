@@ -6,31 +6,61 @@ import { JwtService } from '@nestjs/jwt';
 import { Tourist, TouristDocument } from '../tourist/schema/tourist.schema';
 import { Agency, AgencyDocument } from '../agency/schema/agency.schema';
 import { LoginAuthDto } from './dto/login-touris-auth.dto';
+import { Seller, SellerDocument } from '../seller/schema/seller.schema';
+import { Responsible, ResponsibleDocument } from '../responsible/schema/resposible.schema';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(Tourist.name) private readonly touristModel: Model<TouristDocument>,
     @InjectModel(Agency.name) private readonly agencyModel: Model<AgencyDocument>,
+    @InjectModel(Seller.name) private readonly sellerModel: Model<SellerDocument>,
+    @InjectModel(Responsible.name) private readonly responsibleModel: Model<ResponsibleDocument>,
     private jwtService: JwtService,
   ) {}
 
   async login(loginObject: LoginAuthDto, type: string) {
     const { email, password } = loginObject;
-    let userModel: Model<TouristDocument | AgencyDocument>;
+    let userModel: Model<TouristDocument | AgencyDocument | SellerDocument | ResponsibleDocument>;
     let userNotFoundMsg: string;
     let passwordIncorrectMsg: string;
-    if (type === 'tourist') {
-      userModel = this.touristModel;
-      userNotFoundMsg = 'USER_NOT_FOUND';
-      passwordIncorrectMsg = 'PASSWORD_INCORRECT_TOURIST';
-    } else if (type === 'agency') {
-      userModel = this.agencyModel;
-      userNotFoundMsg = 'AGENCY_NOT_FOUND';
-      passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
-    } else {
-      throw new HttpException('INVALID_USER_TYPE', HttpStatus.FORBIDDEN);
+
+    switch (type) {
+      case 'tourist':
+        userModel = this.touristModel;
+        userNotFoundMsg = 'USER_NOT_FOUND';
+        passwordIncorrectMsg = 'PASSWORD_INCORRECT_TOURIST';
+        break;
+      case 'agency':
+        userModel = this.agencyModel;
+        userNotFoundMsg = 'AGENCY_NOT_FOUND';
+        passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
+        break;
+      case 'seller':
+        userModel = this.sellerModel;
+        userNotFoundMsg = 'SELLER_NOT_FOUND';
+        passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
+        break;
+      case 'responsible':
+        userModel = this.responsibleModel;
+        userNotFoundMsg = 'RESPONSIBLE_NOT_FOUND';
+        passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
+        break;
+      default:
+        throw new HttpException('INVALID_USER_TYPE', HttpStatus.FORBIDDEN);
     }
+
+    // if (type === 'tourist') {
+    //   userModel = this.touristModel;
+    //   userNotFoundMsg = 'USER_NOT_FOUND';
+    //   passwordIncorrectMsg = 'PASSWORD_INCORRECT_TOURIST';
+    // } else if (type === 'agency') {
+    //   userModel = this.agencyModel;
+    //   userNotFoundMsg = 'AGENCY_NOT_FOUND';
+    //   passwordIncorrectMsg = 'PASSWORD_INCORRECT_AGENCY';
+    // } else {
+    //   throw new HttpException('INVALID_USER_TYPE', HttpStatus.FORBIDDEN);
+    // }
 
     const findUser = await userModel.findOne({ email });
     if (!findUser) throw new HttpException(userNotFoundMsg, HttpStatus.FORBIDDEN);
