@@ -54,6 +54,20 @@ export class BaseRepository<T> {
     return updated;
   }
 
+   // Elimina
+   async delete(id: string): Promise<T> {
+    try {
+      const deleted = await this.BaseModel.findByIdAndDelete(id);
+      return deleted;
+    } catch (error) {
+      throw new HttpException(
+        `Could not delete ${this.modelName}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+
 
 
   // Validacion de usuario por Google

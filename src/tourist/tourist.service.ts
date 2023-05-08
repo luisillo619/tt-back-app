@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException,NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 // import { InjectModel } from '@nestjs/mongoose';
 // import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
@@ -49,34 +49,33 @@ export class TouristService {
   // POST a http://localhost:3000/tourist/register con: { "firstName": "Carlos", "lastName": "Reyes", "email": "carlos@gmail.com", "password": "Carlos..14", "phoneNumber": "3002003344" }
 
   async update(id: string, updateDto: TouristUpdateDto): Promise<Tourist> {
-      const { firstName, lastName, email, phoneNumber } = updateDto;
-      console.log({ firstName, lastName, email, phoneNumber })
-      // if (!firstName || !lastName || !email || !phoneNumber) {
-      //     throw new BadRequestException('Missing data');
-      // }
+    const { firstName, lastName, email, phoneNumber } = updateDto;
+    console.log({ firstName, lastName, email, phoneNumber });
+    // if (!firstName || !lastName || !email || !phoneNumber) {
+    //     throw new BadRequestException('Missing data');
+    // }
 
-      try {
-        const existingTourist = await this._touristRepository.findById(id);
-        if (!existingTourist) {
-            throw new NotFoundException('Tourist not found');
-        }
-        const touristUpdated = await this._touristRepository.update(id, updateDto)
-        // existingTourist.firstName = firstName;
-        // existingTourist.lastName = lastName;
-        // existingTourist.email = email;
-        // this._touristRepository.
-        return touristUpdated
-      } catch (error) {
-        throw new Error('ERROR_fINDING_OR_UPDATING_TOURIST');
+    try {
+      const existingTourist = await this._touristRepository.findById(id);
+      if (!existingTourist) {
+        throw new NotFoundException('Tourist not found');
       }
-     
+      const touristUpdated = await this._touristRepository.update(id, updateDto);
+      // existingTourist.firstName = firstName;
+      // existingTourist.lastName = lastName;
+      // existingTourist.email = email;
+      // this._touristRepository.
+      return touristUpdated;
+    } catch (error) {
+      throw new Error('ERROR_fINDING_OR_UPDATING_TOURIST');
+    }
   }
 
-  // async delete(id: string): Promise<Tourist> {
-  //     const tourist = await this._touristRepository.findById(id);
-  //     if (!tourist) {
-  //         throw new NotFoundException('Tourist not found');
-  //     }
-  //     return await tourist.deleteOne();
-  // }
+  async delete(id: string): Promise<Tourist> {
+    const tourist = await this._touristRepository.delete(id);
+    if (!tourist) {
+      throw new NotFoundException('Tourist not found');
+    }
+    return await tourist.deleteOne();
+  }
 }

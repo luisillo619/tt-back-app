@@ -67,34 +67,14 @@ export class TouristController {
       }
   }
 
-  // @Delete(':id')
-  // async delete(@Param('id') id: string): Promise<Tourist> {
-  //     try {
-  //         return await this.touristService.delete(id);
-  //     } catch (error) {
-  //         throw new InternalServerErrorException('Failed to delete tourist');
-  //     }
-  // }
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<Tourist> {
+      try {
+          return await this.touristService.delete(id);
+      } catch (error) {
+          throw new InternalServerErrorException('Failed to delete tourist');
+      }
+  }
 }
 
-// @Put(':id')
-// async update(@Param('id') id: string, @Body() updateDto: TouristUpdateDto): Promise<Tourist> {
-//   try {
-//     return await this.touristService.update(id, updateDto);
-//   } catch (error) {
-//     if (error instanceof mongoose.Error.CastError || error instanceof mongoose.Error.ValidationError) {
-//       throw new BadRequestException('Invalid request body');
-//     } else {
-//       throw error;
-//     }
-//   }
-// }
 
-// @Delete(':id')
-// async delete(@Param('id') id: string): Promise<Tourist> {
-//   try {
-//     return await this.touristService.delete(id);
-//   } catch (error) {
-//     throw new InternalServerErrorException('Failed to delete tourist');
-//   }
-// }
