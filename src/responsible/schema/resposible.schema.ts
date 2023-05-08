@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 export type ResponsibleDocument = HydratedDocument<Responsible>;
 
@@ -79,22 +79,25 @@ export class Responsible {
   //   tourist_trip_rating: { trip: Trip; tourists: { touristId: Tourist; rating: number }[];  totalTourist: Number}[];
 
   @Prop({ required: true })
-    firstName: string;
+  firstName: string;
 
-    @Prop({ required: true })
-    lastName: string;
-  
-    @Prop({ required: true })
-    email: string;
+  @Prop({ required: true })
+  lastName: string;
 
-    @Prop({required:true})
-    role: string;
+  @Prop()
+  password: string;
 
-    @Prop({ required: true })
-    provider: string
+  @Prop({ required: true })
+  email: string;
 
-    @Prop({ required: true })
-    subject: string
+  @Prop({ required: true })
+  role: string;
+
+  @Prop({ required: true })
+  provider: string;
+
+  @Prop({ required: true })
+  subject: string;
 }
 
 export const ResponsibleSchema = SchemaFactory.createForClass(Responsible);

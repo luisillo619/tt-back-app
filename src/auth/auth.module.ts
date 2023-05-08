@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
+import { Responsible, ResponsibleSchema } from '../responsible/schema/resposible.schema';
 import { AgencyRepository } from '../agency/agency.repository';
 import { AgencyService } from '../agency/agency.service';
 import { TouristRepository } from '../tourist/tourist.repository';
@@ -15,6 +16,7 @@ import { Tourist, TouristSchema } from '../tourist/schema/tourist.schema';
 import { Agency, AgencySchema } from '../agency/schema/agency.schema';
 import { GoogleStrategy } from './strategy/google.stategy';
 import { GoogleAuthService } from './google.service';
+import { Seller, SellerSchema } from '../seller/schema/seller.schema';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { GoogleAuthService } from './google.service';
     MongooseModule.forFeature([
       { name: Tourist.name, schema: TouristSchema },
       { name: Agency.name, schema: AgencySchema },
+      { name: Seller.name, schema: SellerSchema },
+      { name: Responsible.name, schema: ResponsibleSchema },
     ]),
 
     JwtModule.register({
